@@ -129,7 +129,7 @@ export default function Register() {
               <input type="password" id="password" name="password" autoComplete="new-password" className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-gray-400 focus:outline-none" required />
             </div>
             <button type="submit" className="cursor-pointer rounded-md bg-gray-800 px-5 py-2 text-white transition hover:bg-gray-900">
-              S'inscrire
+              {"S'inscrire"}
             </button>
           </form>
           <p className="mt-4 text-sm text-gray-600">

@@ -26,30 +26,29 @@ export default function AdminUsersId() {
     ville: "",
   });
 
-  const fetchUsersId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${params.id}`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      const json = await res.json();
-
-      if (!res.ok) {
-        if (res.status === 401) {
-          window.location.href = "/login?auth=unauthorized";
-          return;
-        }
-        throw json;
-      }
-
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchUsersId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${params.id}`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const json = await res.json();
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            window.location.href = "/login?auth=unauthorized";
+            return;
+          }
+          throw json;
+        }
+
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchUsersId();
   }, []);
 
@@ -271,7 +270,7 @@ export default function AdminUsersId() {
                   </button>
 
                   <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
-                    Supprimer l'utilisateur&nbsp;*
+                    {"Supprimer l'utilisateur&nbsp;*"}
                   </button>
                 </div>
                 <div className="mt-4">

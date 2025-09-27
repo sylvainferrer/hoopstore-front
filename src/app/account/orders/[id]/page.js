@@ -7,23 +7,22 @@ export default function MeOrderId() {
   const orderParams = useParams();
   const [data, setData] = useState([]);
 
-  const fetchMeOrderId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${orderParams.id}`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchMeOrderId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${orderParams.id}`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchMeOrderId();
   }, []);
 

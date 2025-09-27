@@ -19,22 +19,21 @@ export default function ProductsId() {
     variants: [],
   });
 
-  const fetchProductsId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.id}`, {
-        method: "GET",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchProductsId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.id}`, {
+          method: "GET",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchProductsId();
   }, []);
 

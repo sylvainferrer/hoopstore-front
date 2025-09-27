@@ -20,22 +20,21 @@ export default function AdminProductsVariantId() {
     active: false,
   });
 
-  const fetchProductVariantId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/product-variants/${variantParams.id}`, {
-        method: "GET",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchProductVariantId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/product-variants/${variantParams.id}`, {
+          method: "GET",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchProductVariantId();
   }, []);
 

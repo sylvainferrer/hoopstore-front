@@ -28,38 +28,39 @@ export default function AdminProductsId() {
     variants: [],
   });
 
-  const fetchIdWithVariants = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/products/${productParams.id}`, {
-        method: "GET",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
+  useEffect(() => {
+    const fetchIdWithVariants = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/products/${productParams.id}`, {
+          method: "GET",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
       }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const fetchSubCategoriesGrouped = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subcategories`, {
-        method: "GET",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setSubCategories(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    };
+    fetchIdWithVariants();
+  }, []);
 
   useEffect(() => {
-    fetchIdWithVariants();
+    const fetchSubCategoriesGrouped = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subcategories`, {
+          method: "GET",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setSubCategories(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchSubCategoriesGrouped();
   }, []);
 

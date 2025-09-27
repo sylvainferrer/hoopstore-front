@@ -245,7 +245,7 @@ export default function Account() {
               </button>
 
               <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
-                Supprimer l'utilisateur&nbsp;*
+                {"Supprimer l'utilisateur&nbsp;*"}
               </button>
             </div>
           </form>

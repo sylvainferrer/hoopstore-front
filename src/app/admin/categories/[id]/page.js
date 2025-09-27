@@ -17,22 +17,21 @@ export default function AdminCategoriesId() {
     name: "",
   });
 
-  const fetchCategoriesId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${params.id}`, {
-        method: "GET",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchCategoriesId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${params.id}`, {
+          method: "GET",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchCategoriesId();
   }, []);
 

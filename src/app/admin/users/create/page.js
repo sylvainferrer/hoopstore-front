@@ -175,7 +175,7 @@ export default function AdminUsersCreate() {
 
             <div className="md:col-span-2">
               <button type="submit" className="w-auto cursor-pointer rounded-md bg-gray-800 px-5 py-2 text-white transition hover:bg-gray-900">
-                Ajouter l'utilisateur
+                {"Ajouter l'utilisateur"}
               </button>
             </div>
           </form>

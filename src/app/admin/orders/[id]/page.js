@@ -7,23 +7,22 @@ export default function AdminOrderId() {
   const orderParams = useParams();
   const [data, setData] = useState([]);
 
-  const fetchAdminOrderId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderParams.id}`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchAdminOrderId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderParams.id}`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchAdminOrderId();
   }, []);
 

@@ -16,22 +16,21 @@ export default function AdminSubCategoriesId() {
     name: "",
   });
 
-  const fetchSubCategoriesId = async function () {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subcategories/${params.id}`, {
-        method: "GET",
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw json;
-      }
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchSubCategoriesId = async function () {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subcategories/${params.id}`, {
+          method: "GET",
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw json;
+        }
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchSubCategoriesId();
   }, []);
 
