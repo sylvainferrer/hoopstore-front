@@ -1,10 +1,18 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, Suspense } from "react";
 import Link from "next/link";
 import UserName from "@/context/UserName";
 
 export default function Login() {
+  return (
+    <Suspense fallback={<div>Chargement…</div>}>
+      <LoginInner />
+    </Suspense>
+  );
+}
+
+function LoginInner() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(null);
   const [expiredMessage, setExpiredMessage] = useState(null);
