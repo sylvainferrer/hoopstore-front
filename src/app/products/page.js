@@ -31,21 +31,21 @@ export default function Products() {
 
   return (
     <main className="">
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-800 md:text-2xl">Découvrez tous nos articles</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Découvrez tous nos articles</h2>
       </div>
 
-      <div className="px-5 py-8">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         <div className="-mx-4 flex flex-wrap">
           {data.map(function (item) {
             return (
               <div key={item.id} className="mb-8 w-full px-4 sm:w-1/2 md:w-1/3">
                 <Link href={`/products/${item.id}`} className="group block h-full">
-                  <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
-                    <img src={item.imageUrl} alt={item.name} className="mb-4 h-48 w-full rounded-md object-cover" />
-                    <h2 className="mb-2 text-lg font-semibold text-gray-800">{item.name}</h2>
-                    <p className="mb-2 text-sm text-gray-600">{item.subCategory}</p>
-                    <p className="font-medium text-gray-800">{item.price} €</p>
+                  <div className="rounded-2xl bg-orange-50 p-4">
+                    <img src={item.imageUrl} alt={item.name} className="mb-4 h-68 w-full rounded-tl-2xl rounded-tr-2xl object-cover" />
+                    <h2 className="mb-2 text-lg text-gray-950">{item.name}</h2>
+                    <p className="text-primary mb-2 text-sm">{item.subCategory}</p>
+                    <p className="text-lg font-bold text-gray-950">{item.price}€</p>
                   </div>
                 </Link>
               </div>

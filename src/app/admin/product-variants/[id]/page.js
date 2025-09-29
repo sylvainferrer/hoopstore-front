@@ -20,23 +20,24 @@ export default function AdminProductsVariantId() {
     active: false,
   });
 
-  useEffect(() => {
-    const fetchProductVariantId = async function () {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/product-variants/${variantParams.id}`, {
-          method: "GET",
-        });
-        const json = await res.json();
-        if (!res.ok) {
-          throw json;
-        }
-        setData(json);
-      } catch (err) {
-        console.error(err);
+  const fetchProductVariantId = async function () {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/product-variants/${variantParams.id}`, {
+        method: "GET",
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        throw json;
       }
-    };
+      setData(json);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchProductVariantId();
-  }, []);
+  }, [fetchProductVariantId]);
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
@@ -114,13 +115,13 @@ export default function AdminProductsVariantId() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Détails</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Détails</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -150,7 +151,7 @@ export default function AdminProductsVariantId() {
         </nav>
       </div>
 
-      <div className="px-5 py-8">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         {successMessage && (
           <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
             <ul>
@@ -171,7 +172,7 @@ export default function AdminProductsVariantId() {
           </div>
         )}
 
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="border border-gray-300 bg-white p-8">
           <form className="grid gap-6" onSubmit={handleSubmit}>
             <div>
               <label className="mb-1 block text-sm text-gray-700">
@@ -239,7 +240,7 @@ export default function AdminProductsVariantId() {
               </label>
             </div>
 
-            <div className="flex justify-start gap-4">
+            <div className="flex flex-wrap justify-start gap-4">
               <button type="button" disabled={isEditing} onClick={() => setIsEditing(true)} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-blue-300 text-white opacity-50" : "bg-blue-600 text-white hover:bg-blue-700"}`}>
                 Modifier
               </button>

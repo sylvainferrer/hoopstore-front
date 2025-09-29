@@ -60,13 +60,13 @@ export default function AdminUsersCreate() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Créer un utilisateur</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Créer un utilisateur</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -102,7 +102,7 @@ export default function AdminUsersCreate() {
           </div>
         )}
 
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="border border-gray-300 bg-white p-8">
           <form autoComplete="off" className="grid grid-cols-1 gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
             <div className="col-span-1">
               <label htmlFor="firstname" className="mb-1 block text-sm text-gray-700">
@@ -174,7 +174,7 @@ export default function AdminUsersCreate() {
             </div>
 
             <div className="md:col-span-2">
-              <button type="submit" className="w-auto cursor-pointer rounded-md bg-gray-800 px-5 py-2 text-white transition hover:bg-gray-900">
+              <button type="submit" className="w-auto cursor-pointer rounded-md bg-gray-950 px-5 py-2 text-white transition hover:bg-gray-900">
                 {"Ajouter l'utilisateur"}
               </button>
             </div>

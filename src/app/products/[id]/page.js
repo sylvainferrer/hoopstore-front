@@ -80,10 +80,10 @@ export default function ProductsId() {
   return (
     <>
       <div className="px-8 py-6">
-        <nav className="text-sm text-gray-600">
+        <nav className="">
           <ol className="list-reset flex">
             <li>
-              <Link href="/products" className="font-medium text-gray-700 hover:underline">
+              <Link href="/products" className="font-medium text-gray-950 hover:underline">
                 Retour vers tous les produits
               </Link>
             </li>
@@ -91,8 +91,8 @@ export default function ProductsId() {
         </nav>
       </div>
 
-      <div className="px-5 py-8">
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+      <div className="mx-auto max-w-7xl p-2 py-8">
+        <div className="rounded-2xl bg-orange-50 p-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>{data.imageUrl ? <img src={data.imageUrl} alt={data.name} className="aspect-square w-full rounded-2xl border border-gray-200 object-cover" /> : <div className="grid aspect-square w-full place-items-center rounded-2xl bg-gray-100 text-gray-500">Aucune image</div>}</div>
 
@@ -108,9 +108,9 @@ export default function ProductsId() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2 text-sm">
-                {data.category && <span className="rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-gray-700">Catégorie : {data.category}</span>}
-                {data.subCategory && <span className="rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-gray-700">Sous-catégorie : {data.subCategory}</span>}
-                {data.genre && <span className="rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-gray-700">{data.genre}</span>}
+                {data.category && <span className="bg-white px-3 py-1 text-gray-700">Catégorie : {data.category}</span>}
+                {data.subCategory && <span className="bg-white px-3 py-1 text-gray-700">Sous-catégorie : {data.subCategory}</span>}
+                {data.genre && <span className="bg-white px-3 py-1 text-gray-700">{data.genre}</span>}
               </div>
               <form onSubmit={handleSubmit}>
                 <input type="hidden" name="productVariantId" value={data.id || ""} />
@@ -131,10 +131,10 @@ export default function ProductsId() {
                   </div>
                 )}
                 <div className="mt-4">
-                  <label htmlFor="quantity" className="mb-2 block text-sm font-medium text-gray-700">
+                  <label htmlFor="quantity" className="mb-2 block text-sm font-medium text-gray-950">
                     Quantité
                   </label>
-                  <input type="number" id="quantity" name="quantity" min={1} defaultValue={1} className="w-24 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-gray-500 focus:ring-2 focus:ring-gray-400 focus:outline-none" />
+                  <input type="number" id="quantity" name="quantity" min={1} defaultValue={1} className="w-24 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-400 focus:outline-none" />
                 </div>
 
                 {successMessage && (
@@ -144,7 +144,7 @@ export default function ProductsId() {
                 )}
 
                 <div className="mt-8">
-                  <button type="submit" className="rounded-xl bg-gray-900 px-6 py-3 text-white transition hover:bg-gray-800">
+                  <button type="submit" className="rounded-xl bg-gray-950 px-6 py-3 text-white transition hover:bg-gray-800">
                     Ajouter au panier
                   </button>
                 </div>

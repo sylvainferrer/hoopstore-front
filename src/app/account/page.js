@@ -11,48 +11,50 @@ export default function AdminHome() {
   return (
     <div>
       {/* Header */}
-      <div className="border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Mon compte</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Mon compte</h2>
       </div>
 
-      <div className="px-5 py-8">
-        {/* Utilisateurs */}
-        <div>
-          <div className="mb-3 flex items-center">
-            <span className="flex items-center rounded-full bg-gray-100 px-3 py-1 text-lg font-semibold text-gray-800">
-              {/* UserIcon SVG inline */}
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
-                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M4 20c0-3 4-5 8-5s8 2 8 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-              Profile
-            </span>
+      <div className="mx-auto max-w-7xl space-y-10 px-2 py-8">
+        <div className="flex flex-wrap justify-center gap-6">
+          {/* Utilisateurs */}
+          <div className="flex basis-full flex-col items-center rounded-lg border border-gray-300 bg-white p-6 sm:basis-1/2 lg:basis-1/3">
+            <div className="mb-6 flex items-center">
+              <span className="flex items-center text-2xl font-semibold text-gray-950">
+                {/* UserIcon SVG inline */}
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M4 20c0-3 4-5 8-5s8 2 8 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                Profile
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-4">
+              <Link href="/account/profile" className="btn-primary-black">
+                Mes informations personnelles
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/account/profile" className="mb-2 flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 p-3 text-center text-base font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 focus:outline-none md:text-lg" style={{ minWidth: 180 }}>
-              Mes informations personnelles
-            </Link>
-          </div>
-        </div>
 
-        {/* Commandes */}
-        <div>
-          <div className="mb-3 flex items-center">
-            <span className="flex items-center rounded-full bg-gray-100 px-3 py-1 text-lg font-semibold text-gray-800">
-              {/* OrdersIcon SVG inline */}
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
-                <rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                <line x1="8" y1="7" x2="16" y2="7" stroke="currentColor" strokeWidth="1.2" />
-                <line x1="8" y1="11" x2="16" y2="11" stroke="currentColor" strokeWidth="1.2" />
-                <line x1="8" y1="15" x2="13" y2="15" stroke="currentColor" strokeWidth="1.2" />
-              </svg>
-              Commandes
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/account/orders" className="mb-2 flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 p-3 text-center text-base font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 focus:outline-none md:text-lg" style={{ minWidth: 180 }}>
-              Mes commandes
-            </Link>
+          {/* Commandes */}
+          <div className="flex basis-full flex-col items-center rounded-lg border border-gray-300 bg-white p-6 sm:basis-1/2 lg:basis-1/3">
+            <div className="mb-6 flex items-center">
+              <span className="flex items-center text-2xl font-semibold text-gray-950">
+                {/* OrdersIcon SVG inline */}
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
+                  <rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                  <line x1="8" y1="7" x2="16" y2="7" stroke="currentColor" strokeWidth="1.2" />
+                  <line x1="8" y1="11" x2="16" y2="11" stroke="currentColor" strokeWidth="1.2" />
+                  <line x1="8" y1="15" x2="13" y2="15" stroke="currentColor" strokeWidth="1.2" />
+                </svg>
+                Commandes
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-4">
+              <Link href="/account/orders" className="btn-primary-black">
+                Mes commandes
+              </Link>
+            </div>
           </div>
         </div>
       </div>

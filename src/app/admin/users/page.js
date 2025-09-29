@@ -37,13 +37,13 @@ export default function AdminUsersList() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Liste des utilisateurs</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Liste des utilisateurs</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -68,22 +68,22 @@ export default function AdminUsersList() {
           </div>
         )}
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-800">
+          <table className="w-full text-left text-base text-gray-800">
             <thead className="bg-gray-200">
               <tr>
-                <th className="px-4 py-2 font-bold">ID</th>
-                <th className="px-4 py-2 font-bold">Prénom</th>
-                <th className="px-4 py-2 font-bold">Nom</th>
-                <th className="px-4 py-2 font-bold">Email</th>
-                <th className="px-4 py-2 font-bold">Rôle</th>
-                <th className="px-4 py-2 font-bold"></th>
+                <th className="px-4 py-4 font-bold">ID</th>
+                <th className="px-4 py-4 font-bold">Prénom</th>
+                <th className="px-4 py-4 font-bold">Nom</th>
+                <th className="px-4 py-4 font-bold">Email</th>
+                <th className="px-4 py-4 font-bold">Rôle</th>
+                <th className="px-4 py-4 font-bold"></th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200">
               {(!data || data.length === 0) && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-2 text-gray-500">
+                  <td colSpan={6} className="px-4 py-6 text-center text-gray-500">
                     Aucun utilisateur pour le moment.
                   </td>
                 </tr>
@@ -91,13 +91,13 @@ export default function AdminUsersList() {
 
               {data.map((user, index) => (
                 <tr key={user.id} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                  <td className="px-4 py-2 align-top">{user.id}</td>
-                  <td className="px-4 py-2 align-top">{user.firstname}</td>
-                  <td className="px-4 py-2 align-top">{user.lastname}</td>
-                  <td className="px-4 py-2 align-top">{user.email}</td>
-                  <td className="px-4 py-2 align-top"> {user?.role === "ROLE_SUPER_ADMIN" ? "Super admin" : user?.role === "ROLE_ADMIN" ? "Admin" : "Client"}</td>
-                  <td className="px-4 py-2 text-right align-top">
-                    <Link href={`/admin/users/${user.id}`} className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300">
+                  <td className="px-4 py-5 align-middle">{user.id}</td>
+                  <td className="px-4 py-5 align-middle">{user.firstname}</td>
+                  <td className="px-4 py-5 align-middle">{user.lastname}</td>
+                  <td className="px-4 py-5 align-middle">{user.email}</td>
+                  <td className="px-4 py-5 align-middle">{user?.role === "ROLE_SUPER_ADMIN" ? "Super admin" : user?.role === "ROLE_ADMIN" ? "Admin" : "Client"}</td>
+                  <td className="px-4 py-5 text-right align-middle">
+                    <Link href={`/admin/users/${user.id}`} className="btn-secondary-black" aria-label={`Afficher l'utilisateur ${user.firstname} ${user.lastname}`}>
                       Afficher
                     </Link>
                   </td>

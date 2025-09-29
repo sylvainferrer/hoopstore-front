@@ -29,13 +29,13 @@ export default function OrdersList() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Liste des commandes</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Liste des commandes</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/account" className="font-medium text-gray-700 hover:underline">
                 Mon compte
@@ -83,7 +83,7 @@ export default function OrdersList() {
                   <td className="px-4 py-2 align-top whitespace-nowrap">{order.paidAt}</td>
                   <td className="px-4 py-2 align-top">{order.status === "PENDING" ? "En attente" : order.status === "PAID" ? "Payé" : order.status === "CANCELED" ? "Annulé" : order.status}</td>
                   <td className="px-4 py-2 text-right align-top">
-                    <button onClick={() => router.push(`/account/orders/${order.id}`)} className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300" aria-label={`Modifier le produit ${order.name}`}>
+                    <button onClick={() => router.push(`/account/orders/${order.id}`)} className="btn-secondary-black" aria-label={`Modifier le produit ${order.name}`}>
                       Détail
                     </button>
                   </td>

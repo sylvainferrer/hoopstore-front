@@ -26,31 +26,32 @@ export default function AdminUsersId() {
     ville: "",
   });
 
-  useEffect(() => {
-    const fetchUsersId = async function () {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${params.id}`, {
-          method: "GET",
-          credentials: "include",
-        });
+  const fetchUsersId = async function () {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${params.id}`, {
+        method: "GET",
+        credentials: "include",
+      });
 
-        const json = await res.json();
+      const json = await res.json();
 
-        if (!res.ok) {
-          if (res.status === 401) {
-            window.location.href = "/login?auth=unauthorized";
-            return;
-          }
-          throw json;
+      if (!res.ok) {
+        if (res.status === 401) {
+          window.location.href = "/login?auth=unauthorized";
+          return;
         }
-
-        setData(json);
-      } catch (err) {
-        console.error(err);
+        throw json;
       }
-    };
+
+      setData(json);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchUsersId();
-  }, []);
+  }, [fetchUsersId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -123,13 +124,13 @@ export default function AdminUsersId() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Fiche utilisateur</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Fiche utilisateur</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -151,7 +152,7 @@ export default function AdminUsersId() {
         </nav>
       </div>
 
-      <div className="px-5 py-8">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         {successMessage && (
           <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
             <ul>
@@ -172,7 +173,7 @@ export default function AdminUsersId() {
           </div>
         )}
 
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="border border-gray-300 bg-white p-8">
           <form className="grid grid-cols-1 gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
             <div className="col-span-1">
               <label className="mb-1 block text-sm text-gray-700">
@@ -240,7 +241,7 @@ export default function AdminUsersId() {
 
             {role === "ROLE_SUPER_ADMIN" && (
               <>
-                <div className="flex justify-start gap-4 md:col-span-2">
+                <div className="flex flex-wrap justify-start gap-4 md:col-span-2">
                   <button
                     type="button"
                     disabled={isEditing}
@@ -270,7 +271,7 @@ export default function AdminUsersId() {
                   </button>
 
                   <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
-                    {"Supprimer l'utilisateur&nbsp;*"}
+                    {`Supprimer l'utilisateur *`}
                   </button>
                 </div>
                 <div className="mt-4">

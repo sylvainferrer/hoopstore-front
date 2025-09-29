@@ -126,13 +126,13 @@ export default function Account() {
 
   return (
     <>
-      <div className="border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Mes informations personnelles</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Mes informations personnelles</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/account" className="font-medium text-gray-700 hover:underline">
                 Mon compte
@@ -146,7 +146,7 @@ export default function Account() {
         </nav>
       </div>
 
-      <div className="px-5 py-8">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         {successMessage && (
           <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
             <ul>
@@ -167,7 +167,7 @@ export default function Account() {
           </div>
         )}
 
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="border border-gray-300 bg-white p-8">
           <form className="grid grid-cols-1 gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
             {/* Prénom + Nom */}
             <div>
@@ -215,7 +215,7 @@ export default function Account() {
             </div>
 
             {/* Boutons, inchangés */}
-            <div className="flex justify-start gap-4 md:col-span-2">
+            <div className="flex flex-wrap justify-start gap-4 md:col-span-2">
               <button
                 type="button"
                 disabled={isEditing}
@@ -227,7 +227,7 @@ export default function Account() {
                 Modifier
               </button>
 
-              <button type="submit" disabled={!isEditing} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-gray-400 text-white opacity-50"}`}>
+              <button type="submit" disabled={!isEditing} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-gray-950 text-white" : "bg-gray-400 text-white opacity-50"}`}>
                 Enregistrer les modifications
               </button>
 
@@ -245,7 +245,7 @@ export default function Account() {
               </button>
 
               <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
-                {"Supprimer l'utilisateur&nbsp;*"}
+                {`Supprimer l'utilisateur *`}
               </button>
             </div>
           </form>

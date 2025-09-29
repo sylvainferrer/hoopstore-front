@@ -42,12 +42,12 @@ export default function ForgotPasswordPage() {
 
   return (
     <>
-      <div className="border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Mot de passe oublié</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Mot de passe oublié</h2>
       </div>
 
-      <div className="px-5 py-8">
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+      <div className="mx-auto max-w-7xl p-2 py-8">
+        <div className="border border-gray-300 bg-white p-8">
           {message && (
             <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
               <ul>
@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
               </label>
               <input type="email" id="email" name="email" className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-gray-400 focus:outline-none" placeholder="Votre email" required />
             </div>
-            <button type="submit" className="cursor-pointer rounded-md bg-gray-800 px-5 py-2 text-white transition hover:bg-gray-900">
+            <button type="submit" className="cursor-pointer rounded-md bg-gray-950 px-5 py-2 text-white transition hover:bg-gray-900">
               Envoyer le lien
             </button>
           </form>

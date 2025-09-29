@@ -28,13 +28,13 @@ export default function SubcategoriesList() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Liste des sous-catégories</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Liste des sous-catégories</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -48,7 +48,7 @@ export default function SubcategoriesList() {
         </nav>
       </div>
 
-      <div className="px-5 py-8">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         {flashMessage && (
           <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
             <ul>
@@ -71,18 +71,18 @@ export default function SubcategoriesList() {
               <table className="w-full text-left text-sm text-gray-800">
                 <thead className="bg-gray-200">
                   <tr>
-                    <th className="px-4 py-2 font-bold">ID</th>
-                    <th className="px-4 py-2 font-bold">Sous-catégorie</th>
-                    <th className="px-4 py-2 font-bold"></th>
+                    <th className="px-4 py-4 font-bold">ID</th>
+                    <th className="px-4 py-4 font-bold">Sous-catégorie</th>
+                    <th className="px-4 py-4 font-bold"></th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-gray-200">
                   {cat.subCategories?.map((subCat, subIndex) => (
                     <tr key={subCat.subCategoryId} className={`${subIndex % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                      <td className="px-4 py-2 align-top">{subCat.subCategoryId}</td>
-                      <td className="px-4 py-2 align-top">{subCat.subCategoryName}</td>
-                      <td className="px-4 py-2 text-right align-top">
+                      <td className="px-4 py-4 align-top">{subCat.subCategoryId}</td>
+                      <td className="px-4 py-4 align-top">{subCat.subCategoryName}</td>
+                      <td className="px-4 py-4 text-right align-top">
                         <Link href={`/admin/subcategories/${subCat.subCategoryId}`} className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300">
                           Modifier
                         </Link>

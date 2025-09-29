@@ -50,12 +50,12 @@ export default function ResetPasswordPage() {
 
   return (
     <>
-      <div className="border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Réinitialiser le mot de passe</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Réinitialiser le mot de passe</h2>
       </div>
 
-      <div className="px-5 py-8">
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+      <div className="mx-auto max-w-7xl p-2 py-8">
+        <div className="border border-gray-300 bg-white p-8">
           {successMessage && (
             <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
               <ul>

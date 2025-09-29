@@ -2,20 +2,29 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #030712;
+  --primary: #e04f00;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-open);
+  --font-title: var(--font-teko);
+  --color-primary: var(--primary);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-open), sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-teko);
 }
 
 button {
@@ -33,4 +42,42 @@ button:disabled {
 }
 .categories-grid {
   grid-template-columns: 80px 1fr auto;
+}
+
+.btn-primary {
+  background-color: var(--background);
+  border: 1px solid var(--background);
+  color: var(--primary);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.btn-secondary {
+  color: var(--background);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--background);
+}
+
+.btn-primary-black {
+  background-color: var(--foreground);
+  border: 1px solid var(--foreground);
+  color: var(--background);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.btn-secondary-black {
+  border: 1px solid var(--foreground);
+  color: var(--foreground);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.btn-primary-orange {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  color: var(--background);
+  padding: 8px 12px;
+  border-radius: 8px;
 }

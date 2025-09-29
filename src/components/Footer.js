@@ -2,23 +2,23 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="w-full border-t border-gray-300 bg-gray-100">
-      <div className="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-gray-600">
+    <footer className="w-full bg-gray-950">
+      <div className="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-white">
         <nav className="mb-4 space-x-6">
-          <a href="/about" className="transition hover:text-gray-800">
+          <a href="/about" className="">
             À propos
           </a>
-          <a href="/contact" className="transition hover:text-gray-800">
+          <a href="/contact" className="">
             Contact
           </a>
-          <a href="/mentions-legales" className="transition hover:text-gray-800">
+          <a href="/mentions-legales" className="">
             Mentions légales
           </a>
-          <a href="/cgv" className="transition hover:text-gray-800">
+          <a href="/cgv" className="">
             CGV/CGU
           </a>
         </nav>
-        © {new Date().getFullYear()} HoopStore. Tous droits réservés.
+        <span className="text-xs">© {new Date().getFullYear()} HoopStore. Tous droits réservés.</span>
       </div>
     </footer>
   );

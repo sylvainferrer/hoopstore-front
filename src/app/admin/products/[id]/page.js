@@ -28,23 +28,24 @@ export default function AdminProductsId() {
     variants: [],
   });
 
-  useEffect(() => {
-    const fetchIdWithVariants = async function () {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/products/${productParams.id}`, {
-          method: "GET",
-        });
-        const json = await res.json();
-        if (!res.ok) {
-          throw json;
-        }
-        setData(json);
-      } catch (err) {
-        console.error(err);
+  const fetchIdWithVariants = async function () {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/products/${productParams.id}`, {
+        method: "GET",
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        throw json;
       }
-    };
+      setData(json);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchIdWithVariants();
-  }, []);
+  }, [fetchIdWithVariants]);
 
   useEffect(() => {
     const fetchSubCategoriesGrouped = async function () {
@@ -169,13 +170,13 @@ export default function AdminProductsId() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Fiche produit</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Fiche produit</h2>
       </div>
 
-      <div className="px-8 py-6">
+      <div className="px-5 py-8">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -197,7 +198,7 @@ export default function AdminProductsId() {
         </nav>
       </div>
 
-      <div className="mt-3 px-5">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         <p className="text-xl text-gray-700">
           ID produit: <span className="font-bold">{data.id || "-"}</span>
         </p>
@@ -206,7 +207,7 @@ export default function AdminProductsId() {
         </p>
       </div>
 
-      <div className="px-5 py-8">
+      <div className="mx-auto max-w-7xl px-2 py-8">
         {flashMessage && (
           <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
             <ul>
@@ -237,7 +238,7 @@ export default function AdminProductsId() {
           </div>
         )}
 
-        <div className="border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="border border-gray-300 bg-white p-8">
           <form className="grid grid-cols-1 gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
             <div>
               <label className="mb-1 block text-sm text-gray-700">
@@ -324,7 +325,7 @@ export default function AdminProductsId() {
               </label>
             </div>
 
-            <div className="flex justify-start gap-4 md:col-span-2">
+            <div className="flex flex-wrap justify-start gap-4 md:col-span-2">
               <button type="button" disabled={isEditing} onClick={() => setIsEditing(true)} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-blue-300 text-white opacity-50" : "bg-blue-600 text-white hover:bg-blue-700"}`}>
                 Éditer
               </button>
@@ -387,18 +388,18 @@ export default function AdminProductsId() {
           <table className="w-full text-left text-sm text-gray-800">
             <thead className="bg-gray-200">
               <tr>
-                <th className="px-4 py-2 font-bold">ID</th>
-                <th className="px-4 py-2 font-bold">Taille</th>
-                <th className="px-4 py-2 font-bold">Stock</th>
-                <th className="px-4 py-2 font-bold">Actif</th>
-                <th className="px-4 py-2 font-bold"></th>
+                <th className="px-4 py-4 font-bold">ID</th>
+                <th className="px-4 py-4 font-bold">Taille</th>
+                <th className="px-4 py-4 font-bold">Stock</th>
+                <th className="px-4 py-4 font-bold">Actif</th>
+                <th className="px-4 py-4 font-bold"></th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200">
               {(!data || data.variants.length) === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-2 text-gray-500">
+                  <td colSpan={5} className="px-4 py-4 text-gray-500">
                     Aucune déclinaison pour le moment.
                   </td>
                 </tr>
@@ -406,13 +407,13 @@ export default function AdminProductsId() {
 
               {data.variants.map((variant, index) => (
                 <tr key={variant.id} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                  <td className="px-4 py-2 align-top">{variant.id}</td>
-                  <td className="px-4 py-2 align-top">{variant.size === "no-size" ? "-" : variant.size}</td>
-                  <td className="px-4 py-2 align-top tabular-nums">{variant.stock}</td>
-                  <td className="px-4 py-2 align-top">
+                  <td className="px-4 py-4 align-top">{variant.id}</td>
+                  <td className="px-4 py-4 align-top">{variant.size === "no-size" ? "-" : variant.size}</td>
+                  <td className="px-4 py-4 align-top tabular-nums">{variant.stock}</td>
+                  <td className="px-4 py-4 align-top">
                     <span className={`block h-4 w-4 rounded-full ${variant.isActive ? "bg-green-500" : "bg-red-500"}`} aria-label={variant.isActive ? "Actif" : "Inactif"} />
                   </td>
-                  <td className="px-4 py-2 text-right align-top">
+                  <td className="px-4 py-4 text-right align-top">
                     <Link href={`/admin/product-variants/${variant.id}`} className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300">
                       Éditer
                     </Link>

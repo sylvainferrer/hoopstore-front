@@ -30,13 +30,13 @@ export default function AdminProductsList() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Liste des produits</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Liste des produits</h2>
       </div>
 
       <div className="px-8 py-6">
         <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex">
+          <ol className="list-reset flex flex-wrap">
             <li>
               <Link href="/admin" className="font-medium text-gray-700 hover:underline">
                 Administration
@@ -109,8 +109,8 @@ export default function AdminProductsList() {
                   </td>
                   <td className="px-4 py-2 align-top tabular-nums">{product.price}</td>
                   <td className="px-4 py-2 align-top">{product.date}</td>
-                  <td className="px-4 py-2 text-right align-top">
-                    <Link href={`/admin/products/${product.id}`} className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300" aria-label={`Modifier le produit ${product.name}`}>
+                  <td className="align-center px-4 py-2 text-right">
+                    <Link href={`/admin/products/${product.id}`} className="btn-secondary-black" aria-label={`Modifier le produit ${product.name}`}>
                       Modifier
                     </Link>
                   </td>
