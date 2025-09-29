@@ -37,7 +37,7 @@ export default function AdminProductsVariantId() {
 
   useEffect(() => {
     fetchProductVariantId();
-  }, [fetchProductVariantId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;

@@ -19,21 +19,22 @@ export default function ProductsId() {
     variants: [],
   });
 
-  useEffect(() => {
-    const fetchProductsId = async function () {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.id}`, {
-          method: "GET",
-        });
-        const json = await res.json();
-        if (!res.ok) {
-          throw json;
-        }
-        setData(json);
-      } catch (err) {
-        console.error(err);
+  const fetchProductsId = async function () {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.id}`, {
+        method: "GET",
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        throw json;
       }
-    };
+      setData(json);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchProductsId();
   }, []);
 
@@ -92,7 +93,7 @@ export default function ProductsId() {
       </div>
 
       <div className="mx-auto max-w-7xl p-2 py-8">
-        <div className="rounded-2xl bg-orange-50 p-8">
+        <div className="rounded-2xl border border-orange-200 p-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>{data.imageUrl ? <img src={data.imageUrl} alt={data.name} className="aspect-square w-full rounded-2xl border border-gray-200 object-cover" /> : <div className="grid aspect-square w-full place-items-center rounded-2xl bg-gray-100 text-gray-500">Aucune image</div>}</div>
 
@@ -108,9 +109,9 @@ export default function ProductsId() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2 text-sm">
-                {data.category && <span className="bg-white px-3 py-1 text-gray-700">Catégorie : {data.category}</span>}
-                {data.subCategory && <span className="bg-white px-3 py-1 text-gray-700">Sous-catégorie : {data.subCategory}</span>}
-                {data.genre && <span className="bg-white px-3 py-1 text-gray-700">{data.genre}</span>}
+                {data.category && <span className="bg-orange-100 px-3 py-1 text-gray-700">Catégorie : {data.category}</span>}
+                {data.subCategory && <span className="bg-orange-100 px-3 py-1 text-gray-700">Sous-catégorie : {data.subCategory}</span>}
+                {data.genre && <span className="bg-orange-100 px-3 py-1 text-gray-700">{data.genre}</span>}
               </div>
               <form onSubmit={handleSubmit}>
                 <input type="hidden" name="productVariantId" value={data.id || ""} />

@@ -43,7 +43,7 @@ export default function AdminHome() {
           {/* Produits */}
           <div className="flex basis-full flex-col items-center rounded-lg border border-gray-300 bg-white p-6 sm:basis-1/2 lg:basis-1/3">
             <div className="mb-6 flex items-center">
-              <span className="flex items-center text-2xl font-semibold text-gray-950">
+              <span className="text-primary flex items-center text-2xl font-semibold">
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
                   <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M12 3v18" stroke="currentColor" strokeWidth="1.2" />
@@ -69,7 +69,7 @@ export default function AdminHome() {
           {/* Catalogue */}
           <div className="flex basis-full flex-col items-center rounded-lg border border-gray-300 bg-white p-6 sm:basis-1/2 lg:basis-1/3">
             <div className="mb-6 flex items-center">
-              <span className="flex items-center text-2xl font-semibold text-gray-950">
+              <span className="text-primary flex items-center text-2xl font-semibold">
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
                   <path d="M4 4h16v5H4V4zM4 15h7v5H4v-5zM13 15h7v5h-7v-5zM4 10h16v3H4v-3z" stroke="currentColor" strokeWidth="1.5" />
                 </svg>
@@ -103,7 +103,7 @@ export default function AdminHome() {
           {/* Commandes */}
           <div className="flex basis-full flex-col items-center rounded-lg border border-gray-300 bg-white p-6 sm:basis-1/2 lg:basis-1/3">
             <div className="mb-6 flex items-center">
-              <span className="flex items-center text-2xl font-semibold text-gray-950">
+              <span className="text-primary flex items-center text-2xl font-semibold">
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24" className="mr-2">
                   <rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
                   <line x1="8" y1="7" x2="16" y2="7" stroke="currentColor" strokeWidth="1.2" />

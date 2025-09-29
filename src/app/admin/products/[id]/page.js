@@ -45,7 +45,7 @@ export default function AdminProductsId() {
 
   useEffect(() => {
     fetchIdWithVariants();
-  }, [fetchIdWithVariants]);
+  }, []);
 
   useEffect(() => {
     const fetchSubCategoriesGrouped = async function () {

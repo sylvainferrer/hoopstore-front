@@ -69,7 +69,7 @@ function LoginInner() {
         <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Connexion</h2>
       </div>
       <div className="mx-auto max-w-2xl p-2 py-8">
-        <div className="border border-orange-200 bg-white p-8">
+        <div className="rounded-2xl border border-orange-200 bg-white p-8">
           {errorMessage && (
             <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
               <ul>

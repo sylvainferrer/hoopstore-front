@@ -33,7 +33,7 @@ export default function AdminSubCategoriesId() {
 
   useEffect(() => {
     fetchSubCategoriesId();
-  }, [fetchSubCategoriesId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

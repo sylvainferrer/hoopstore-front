@@ -5,27 +5,27 @@ import Link from "next/link";
 export default function Products() {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+  async function fetchProducts() {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
 
-        const json = await res.json();
+      const json = await res.json();
 
-        if (!res.ok) {
-          throw json;
-        }
-
-        setData(json);
-      } catch (err) {
-        console.error(err);
+      if (!res.ok) {
+        throw json;
       }
-    }
 
+      setData(json);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
     fetchProducts();
   }, []);
 

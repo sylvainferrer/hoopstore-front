@@ -49,6 +49,7 @@ export default function AdminProductsCreate() {
 
       setSuccessMessage(json);
       setErrorMessage(null);
+      e.target.reset();
     } catch (err) {
       setErrorMessage(err);
       setSuccessMessage(null);
@@ -67,8 +68,8 @@ export default function AdminProductsCreate() {
 
   return (
     <>
-      <div className="w-full border-b border-gray-300 bg-gray-100 px-8 py-6">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Créer un produit</h2>
+      <div className="bg-orange-50 px-8 py-6">
+        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Créer un produit</h2>
       </div>
 
       <div className="px-8 py-6">
@@ -117,12 +118,12 @@ export default function AdminProductsCreate() {
               </label>
             </div>
 
-            <div>
+            {/* <div>
               <label className="mb-1 block text-sm text-gray-700">
                 Référence produit
                 <input type="text" name="referenceProduct" className="w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-gray-400 focus:outline-none" required />
               </label>
-            </div>
+            </div> */}
 
             <div>
               <label className="mb-1 block text-sm text-gray-700">

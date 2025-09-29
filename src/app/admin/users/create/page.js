@@ -18,7 +18,7 @@ export default function AdminUsersCreate() {
       codePostal: e.target.codePostal.value,
       ville: e.target.ville.value,
       password: e.target.password.value,
-      roles: e.target.roles.value,
+      role: e.target.role.value,
     };
 
     try {
@@ -30,6 +30,7 @@ export default function AdminUsersCreate() {
       });
 
       const json = await res.json();
+      console.log("SSSSSSSSSSSSSSSSSSS", data);
 
       if (!res.ok) {
         if (res.status === 401) {
@@ -128,7 +129,7 @@ export default function AdminUsersCreate() {
             <div className="col-span-1">
               <label className="mb-1 block text-sm text-gray-700">
                 Rôle
-                <select name="roles" defaultValue="" className="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none" required>
+                <select name="role" defaultValue="" className="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none" required>
                   <option value="" disabled>
                     -- Sélectionner --
                   </option>

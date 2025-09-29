@@ -55,7 +55,7 @@ export default function ResetPasswordPage() {
       </div>
 
       <div className="mx-auto max-w-7xl p-2 py-8">
-        <div className="border border-gray-300 bg-white p-8">
+        <div className="rounded-2xl border border-orange-200 bg-white p-8">
           {successMessage && (
             <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
               <ul>

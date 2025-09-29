@@ -71,7 +71,7 @@ export default function AdminProductsList() {
                 <th className="px-4 py-2 font-bold whitespace-nowrap">Sous-catégorie</th>
                 <th className="px-4 py-2 font-bold">Genre</th>
                 <th className="px-4 py-2 font-bold">Description</th>
-                <th className="px-4 py-2 font-bold">Prix</th>
+                <th className="px-4 py-2 font-bold">Prix €</th>
                 <th className="px-4 py-2 font-bold whitespace-nowrap">Date de création</th>
                 <th className="px-4 py-2 font-bold"></th>
               </tr>

@@ -51,7 +51,7 @@ export default function AdminUsersId() {
 
   useEffect(() => {
     fetchUsersId();
-  }, [fetchUsersId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
