@@ -182,7 +182,7 @@ export default function Header() {
             </div>
 
             {/* MENU MOBILE : absolute, caché par défaut, visible au clic */}
-            <div id="mobile-menu" className={`absolute top-16 right-0 left-0 z-40 pb-4 transition-all duration-200 md:hidden ${isMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"}`} aria-hidden={!isMenuOpen}>
+            <div id="mobile-menu" className={`fixed top-16 right-0 left-0 z-40 pb-4 transition-all duration-200 md:hidden ${isMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"}`} aria-hidden={!isMenuOpen}>
               <div className="overflow-hidden bg-white">
                 <nav className="flex flex-col items-center p-4">
                   <div className="p-2">
