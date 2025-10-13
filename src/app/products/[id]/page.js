@@ -1,12 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "next/navigation";
-import Link from "next/link";
+import { FlashMessageContext } from "@/context/FlashMessage";
 
 export default function ProductsId() {
   const params = useParams();
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { setFlashMessage } = useContext(FlashMessageContext);
   const [data, setData] = useState({
     name: "",
     category: "",
@@ -65,18 +64,8 @@ export default function ProductsId() {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    setSuccessMessage("Produit ajouté avec succès");
+    setFlashMessage({ message: "Produit ajouté au panier avec succès" });
   };
-
-  useEffect(() => {
-    if (successMessage) {
-      const timeout = setTimeout(() => {
-        setSuccessMessage(null);
-      }, 3000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [successMessage]);
 
   return (
     <main className="py-20">
@@ -126,12 +115,6 @@ export default function ProductsId() {
                   </label>
                   <input type="number" id="quantity" name="quantity" min={1} defaultValue={1} className="bg-light border-body-light w-full rounded border px-3 py-2" />
                 </div>
-
-                {successMessage && (
-                  <div className="mt-4 mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-                    <p>{successMessage}</p>
-                  </div>
-                )}
 
                 <div className="mt-8">
                   <button type="submit" className="btn-primary-black">

@@ -3,7 +3,9 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FlashMessageProvider from "@/context/FlashMessage";
+import { Suspense } from "react";
 import AuthProvider from "@/context/Auth";
+import AuthQuerySync from "@/context/AuthQuerySync";
 
 const tekoSans = Teko({
   variable: "--font-teko",
@@ -25,6 +27,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${tekoSans.variable} ${openSans.variable} font-open text-body bg-light m-0 box-border p-0 antialiased`}>
         <AuthProvider>
+          <Suspense fallback={null}>
+            <AuthQuerySync />
+          </Suspense>
           <FlashMessageProvider>
             <div className="flex min-h-screen flex-col">
               <Header />
