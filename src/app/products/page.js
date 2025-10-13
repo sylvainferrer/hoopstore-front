@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Card from "@/components/card";
-import Link from "next/link";
 
 export default function Products() {
   const searchParams = useSearchParams();
