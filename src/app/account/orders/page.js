@@ -28,62 +28,57 @@ export default function OrdersList() {
   }, []);
 
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Liste des commandes</h2>
-      </div>
-
-      <div className="px-8 py-6">
-        <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex flex-wrap">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <nav className="mt-6">
+          <ul className="list-reset flex flex-wrap">
             <li>
-              <Link href="/account" className="font-medium text-gray-700 hover:underline">
+              <Link href="/account" className="underline">
                 Mon compte
               </Link>
             </li>
             <li>
               <span className="mx-2">/</span>
             </li>
-            <li className="text-gray-500">Liste des commandes</li>
-          </ol>
+            <li>Liste des commandes</li>
+          </ul>
         </nav>
-      </div>
-      <div className="px-5 py-8">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-800">
-            <thead className="bg-gray-200">
+
+        <div className="mt-6 overflow-x-auto rounded">
+          <table className="w-full text-left">
+            <thead className="bg-body-light text-dark border-body-light border">
               <tr>
-                <th className="px-4 py-2 font-bold">ID</th>
-                <th className="px-4 py-2 font-bold">Prenom</th>
-                <th className="px-4 py-2 font-bold">Nom</th>
-                <th className="px-4 py-2 font-bold">Email</th>
-                <th className="px-4 py-2 font-bold whitespace-nowrap">Total commande</th>
-                <th className="px-4 py-2 font-bold whitespace-nowrap">Date de paiement</th>
-                <th className="px-4 py-2 font-bold">Statut</th>
-                <th className="px-4 py-2 font-bold"></th>
+                <th className="p-2 align-middle">ID</th>
+                <th className="p-2 align-middle">Prenom</th>
+                <th className="p-2 align-middle">Nom</th>
+                <th className="p-2 align-middle">Email</th>
+                <th className="p-2 align-middle whitespace-nowrap">Total commande</th>
+                <th className="p-2 align-middle whitespace-nowrap">Date de paiement</th>
+                <th className="p-2 align-middle">Statut</th>
+                <th className="p-2 align-middle"></th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-body-light divide-y">
               {(!data || data.length === 0) && (
                 <tr>
-                  <td colSpan={10} className="px-2 py-4 text-gray-500">
+                  <td colSpan={8} className="text-body p-2">
                     Aucune commande pour le moment.
                   </td>
                 </tr>
               )}
 
-              {data.map((order, index) => (
-                <tr key={order.id} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                  <td className="px-4 py-2 align-top">{order.id}</td>
-                  <td className="px-4 py-2 align-top">{order.firstname}</td>
-                  <td className="px-4 py-2 align-top">{order.lastname}</td>
-                  <td className="px-4 py-2 align-top">{order.email}</td>
-                  <td className="px-4 py-2 align-top tabular-nums">{order.amount} €</td>
-                  <td className="px-4 py-2 align-top whitespace-nowrap">{order.paidAt}</td>
-                  <td className="px-4 py-2 align-top">{order.status === "PENDING" ? "En attente" : order.status === "PAID" ? "Payé" : order.status === "CANCELED" ? "Annulé" : order.status}</td>
-                  <td className="px-4 py-2 text-right align-top">
-                    <button onClick={() => router.push(`/account/orders/${order.id}`)} className="btn-secondary-black" aria-label={`Modifier le produit ${order.name}`}>
+              {data.map((order) => (
+                <tr key={order.id}>
+                  <td className="p-2 align-middle">{order.id}</td>
+                  <td className="p-2 align-middle">{order.firstname}</td>
+                  <td className="p-2 align-middle">{order.lastname}</td>
+                  <td className="p-2 align-middle">{order.email}</td>
+                  <td className="p-2 align-middle whitespace-nowrap tabular-nums">{order.amount} €</td>
+                  <td className="p-2 align-middle whitespace-nowrap">{order.paidAt}</td>
+                  <td className="p-2 align-middle">{order.status === "PENDING" ? "En attente" : order.status === "PAID" ? "Payé" : order.status === "CANCELED" ? "Annulé" : order.status}</td>
+                  <td className="p-2 text-right align-middle">
+                    <button onClick={() => router.push(`/account/orders/${order.id}`)} className="btn-primary-black" aria-label={`Voir les détails de la commande ${order.id}`}>
                       Détail
                     </button>
                   </td>
@@ -92,7 +87,7 @@ export default function OrdersList() {
             </tbody>
           </table>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

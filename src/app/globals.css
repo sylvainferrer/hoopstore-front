@@ -1,26 +1,15 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #030712;
-  --primary: #e04f00;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-open);
   --font-title: var(--font-teko);
-  --color-primary: var(--primary);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-open), sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --color-primary: var(--color-orange-600);
+  --color-primary-light: var(--color-orange-100);
+  --color-light: var(--color-white);
+  --color-dark: var(--color-zinc-950);
+  --color-body: var(--color-zinc-600);
+  --color-body-light: var(--color-zinc-300);
+  --radius: var(--radius-md);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -34,50 +23,50 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.products-grid {
-  grid-template-columns: auto auto auto auto auto 1fr auto auto auto auto;
-}
-.products-variant-grid {
-  grid-template-columns: auto auto auto auto auto;
-}
-.categories-grid {
-  grid-template-columns: 80px 1fr auto;
-}
-
-.btn-primary {
-  background-color: var(--background);
-  border: 1px solid var(--background);
-  color: var(--primary);
+.btn-primary-white {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  color: var(--color-primary);
   padding: 8px 12px;
   border-radius: 8px;
 }
 
-.btn-secondary {
-  color: var(--background);
+.btn-secondary-white {
+  background-color: transparent;
+  color: var(--color-light);
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid var(--background);
+  border: 1px solid var(--color-light);
 }
 
 .btn-primary-black {
-  background-color: var(--foreground);
-  border: 1px solid var(--foreground);
-  color: var(--background);
+  background-color: var(--color-dark);
+  border: 1px solid var(--color-dark);
+  color: var(--color-light);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .btn-secondary-black {
-  border: 1px solid var(--foreground);
-  color: var(--foreground);
+  background-color: transparent;
+  border: 1px solid var(--color-dark);
+  color: var(--color-dark);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .btn-primary-orange {
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
-  color: var(--background);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: var(--color-light);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius);
+}
+
+.btn-secondary-orange {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 8px 12px;
+  border-radius: var(--radius);
 }

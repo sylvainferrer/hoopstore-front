@@ -1,13 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Card from "@/components/card";
 import Link from "next/link";
 
 export default function Products() {
-  const [data, setData] = useState([]);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [data, setData] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedSort, setSelectedSort] = useState("");
 
   async function fetchProducts() {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+      const queryString = searchParams.toString();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products${queryString ? `?${queryString}` : ""}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -26,33 +34,57 @@ export default function Products() {
   }
 
   useEffect(() => {
+    setSelectedGenre(searchParams.get("genre") ?? "");
+    setSelectedSort(searchParams.get("sort") ?? "");
+
     fetchProducts();
-  }, []);
+  }, [searchParams.toString()]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const params = new URLSearchParams(searchParams);
+
+    if (selectedGenre === "") {
+      params.delete("genre");
+    } else {
+      params.set("genre", selectedGenre);
+    }
+
+    if (selectedSort === "") {
+      params.delete("sort");
+    } else {
+      params.set("sort", selectedSort);
+    }
+
+    const qs = params.toString();
+    router.push(`${pathname}${qs ? `?${qs}` : ""}`);
+  };
 
   return (
-    <main className="">
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Découvrez tous nos articles</h2>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-2 py-8">
-        <div className="-mx-4 flex flex-wrap">
-          {data.map(function (item) {
-            return (
-              <div key={item.id} className="mb-8 w-full px-4 sm:w-1/2 md:w-1/3">
-                <Link href={`/products/${item.id}`} className="group block h-full">
-                  <div className="rounded-2xl bg-orange-50 p-4">
-                    <img src={item.imageUrl} alt={item.name} className="mb-4 h-68 w-full rounded-tl-2xl rounded-tr-2xl object-cover" />
-                    <h2 className="mb-2 text-lg text-gray-950">{item.name}</h2>
-                    <p className="text-primary mb-2 text-sm">{item.subCategory}</p>
-                    <p className="text-lg font-bold text-gray-950">{item.price}€</p>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <div className="mb-6 flex flex-wrap items-center gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-wrap gap-4">
+            <select className="border-body-light rounded border px-4 py-2" value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
+              <option value="">Genre</option>
+              <option value="h">Homme</option>
+              <option value="f">Femme</option>
+              <option value="e">Enfant</option>
+              <option value="u">Unisex</option>
+            </select>
+            <select className="border-body-light rounded border px-4 py-2" value={selectedSort} onChange={(e) => setSelectedSort(e.target.value)}>
+              <option value="">Trier par</option>
+              <option value="price_asc">Prix croissant</option>
+              <option value="price_desc">Prix décroissant</option>
+            </select>
+            <button className="btn-primary-black" type="submit">
+              Appliquer
+            </button>
+          </form>
         </div>
-      </div>
+        <div className="-mx-4 flex flex-wrap">{data == null ? <p className="w-full px-4 text-center">Chargement en cours...</p> : data.length === 0 ? <p className="w-full px-4 text-center">Aucun produit disponible</p> : data.map((product) => <Card key={product.id} id={product.id} img={product.imageUrl} name={product.name} subCategory={product.subCategory} price={product.price} />)}</div>
+      </section>
     </main>
   );
 }

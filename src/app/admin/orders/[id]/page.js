@@ -27,16 +27,12 @@ export default function AdminOrderId() {
   }, []);
 
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Détails de la commande</h2>
-      </div>
-
-      <div className="px-8 py-6">
-        <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex flex-wrap">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <nav className="mt-6">
+          <ul className="list-reset flex flex-wrap">
             <li>
-              <Link href="/admin" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin" className="underline">
                 Administration
               </Link>
             </li>
@@ -44,7 +40,7 @@ export default function AdminOrderId() {
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link href="/admin/orders" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin/orders" className="underline">
                 Liste des commandes
               </Link>
             </li>
@@ -52,46 +48,45 @@ export default function AdminOrderId() {
               <span className="mx-2">/</span>
             </li>
             <li className="text-gray-500">Détails de la commande</li>
-          </ol>
+          </ul>
         </nav>
-      </div>
-      <div className="px-5 py-8">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-800">
-            <thead className="bg-gray-200">
+
+        <div className="mt-6 overflow-x-auto rounded">
+          <table className="w-full text-left">
+            <thead className="bg-body-light text-dark border-body-light border">
               <tr>
-                <th className="px-4 py-2 font-bold">ID</th>
-                <th className="px-4 py-2 font-bold">Produit</th>
-                <th className="px-4 py-2 font-bold">Taille</th>
-                <th className="px-4 py-2 font-bold">Prix</th>
-                <th className="px-4 py-2 font-bold">Quantité</th>
-                <th className="px-4 py-2 font-bold">Total</th>
+                <th className="p-2 align-middle">ID</th>
+                <th className="p-2 align-middle">Produit</th>
+                <th className="p-2 align-middle">Taille</th>
+                <th className="p-2 align-middle">Prix</th>
+                <th className="p-2 align-middle">Quantité</th>
+                <th className="p-2 align-middle">Total</th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-body-light divide-y">
               {(!data || data.length === 0) && (
                 <tr>
-                  <td colSpan={6} className="px-2 py-4 text-gray-500">
+                  <td colSpan={6} className="text-body p-2">
                     Aucun détail pour le moment.
                   </td>
                 </tr>
               )}
 
-              {data.map((od, index) => (
-                <tr key={od.id} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                  <td className="px-4 py-2 align-top">{od.id}</td>
-                  <td className="px-4 py-2 align-top">{od.name}</td>
-                  <td className="px-4 py-2 align-top">{od.size}</td>
-                  <td className="px-4 py-2 align-top tabular-nums">{od.price} €</td>
-                  <td className="px-4 py-2 align-top tabular-nums">{od.quantity}</td>
-                  <td className="px-4 py-2 align-top tabular-nums">{od.total} €</td>
+              {data.map((od) => (
+                <tr key={od.id}>
+                  <td className="p-2 align-middle">{od.id}</td>
+                  <td className="p-2 align-middle">{od.name}</td>
+                  <td className="p-2 align-middle">{od.size}</td>
+                  <td className="p-2 align-middle tabular-nums">{od.price} €</td>
+                  <td className="p-2 align-middle tabular-nums">{od.quantity}</td>
+                  <td className="p-2 align-middle tabular-nums">{od.total} €</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

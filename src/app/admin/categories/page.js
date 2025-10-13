@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
-import FlashMessage from "@/context/FlashMessage";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function CategoriesList() {
   const [data, setData] = useState([]);
-  const { flashMessage } = useContext(FlashMessage);
+  const router = useRouter();
 
   const fetchCategoriesList = async function () {
     try {
@@ -27,71 +27,56 @@ export default function CategoriesList() {
   }, []);
 
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Liste des catégories</h2>
-      </div>
-
-      <div className="px-8 py-6">
-        <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex flex-wrap">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <nav className="mt-6">
+          <ul className="list-reset flex flex-wrap">
             <li>
-              <Link href="/admin" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin" className="underline">
                 Administration
               </Link>
             </li>
             <li>
               <span className="mx-2">/</span>
             </li>
-            <li className="text-gray-500">Liste des catégories</li>
-          </ol>
+            <li>Liste des catégories</li>
+          </ul>
         </nav>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-2 py-8">
-        {flashMessage && (
-          <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-            <ul>
-              {Object.values(flashMessage).map((msg, i) => (
-                <li key={i}>{msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-800">
-            <thead className="bg-gray-200">
+        <div className="mx-auto mt-6 max-w-xl overflow-x-auto rounded">
+          <table className="w-full text-left">
+            <thead className="bg-body-light text-dark border-body-light border">
               <tr>
-                <th className="px-4 py-4 font-bold">ID</th>
-                <th className="px-4 py-4 font-bold">Nom</th>
-                <th className="px-4 py-4 font-bold"></th>
+                <th className="p-2 align-middle">ID</th>
+                <th className="p-2 align-middle">Nom</th>
+                <th className="p-2 align-middle"></th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-body-light divide-y">
               {(!data || data.length === 0) && (
                 <tr>
-                  <td colSpan={3} className="px-2 py-4 text-gray-500">
+                  <td colSpan={6} className="text-body p-2">
                     Aucune catégorie pour le moment.
                   </td>
                 </tr>
               )}
 
-              {data.map((category, index) => (
-                <tr key={category.id} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                  <td className="px-4 py-4 align-top">{category.id}</td>
-                  <td className="px-4 py-4 align-top">{category.name}</td>
-                  <td className="px-4 py-4 text-right align-top">
-                    <Link href={`/admin/categories/${category.id}`} className="btn-secondary-black">
+              {data.map((category) => (
+                <tr key={category.id}>
+                  <td className="p-2 align-middle">{category.id}</td>
+                  <td className="p-2 align-middle">{category.name}</td>
+                  <td className="p-2 text-right align-middle">
+                    <button onClick={() => router.push(`/admin/categories/${category.id}`)} className="btn-primary-black" aria-label={`Voir les détails de la catégorie ${category.name}`}>
                       Modifier
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

@@ -1,6 +1,9 @@
-export async function GET() {
+export async function GET(request) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {
+    const { searchParams } = new URL(request.url);
+    const queryString = searchParams.toString();
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?${queryString}`, {
       method: "GET",
     });
     const json = await res.json();

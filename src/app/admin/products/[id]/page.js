@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
-import FlashMessage from "@/context/FlashMessage";
+import { FlashMessageContext } from "@/context/FlashMessage";
 import Link from "next/link";
 
 export default function AdminProductsId() {
@@ -9,12 +9,8 @@ export default function AdminProductsId() {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [showAddVariant, setShowAddVariant] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [successVariantMessage, setSuccessVariantMessage] = useState(null);
-  const [errorVariantMessage, setErrorVariantMessage] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
-  const { flashMessage, setFlashMessage } = useContext(FlashMessage);
+  const { setFlashMessage } = useContext(FlashMessageContext);
   const [data, setData] = useState({
     id: "",
     name: "",
@@ -89,11 +85,9 @@ export default function AdminProductsId() {
         throw json;
       }
 
-      setSuccessMessage(json);
-      setErrorMessage(null);
+      setFlashMessage(json);
     } catch (err) {
-      setErrorMessage(err);
-      setSuccessMessage(null);
+      setFlashMessage(err);
     }
   };
 
@@ -125,14 +119,12 @@ export default function AdminProductsId() {
         throw json;
       }
 
-      setErrorVariantMessage(null);
-      setSuccessVariantMessage(json);
+      setFlashMessage(json);
       e.target.reset();
       setShowAddVariant(false);
       fetchIdWithVariants();
     } catch (err) {
-      setSuccessVariantMessage(null);
-      setErrorVariantMessage(err);
+      setFlashMessage(err);
     }
   };
 
@@ -155,30 +147,17 @@ export default function AdminProductsId() {
       setFlashMessage(json);
       router.replace("/admin/products");
     } catch (err) {
-      setErrorMessage(err);
+      setFlashMessage(err);
     }
   };
 
-  useEffect(() => {
-    if (!successMessage && !successVariantMessage) return;
-    const t = setTimeout(() => {
-      if (successMessage) setSuccessMessage(null);
-      if (successVariantMessage) setSuccessVariantMessage(null);
-    }, 3000);
-    return () => clearTimeout(t);
-  }, [successMessage, successVariantMessage]);
-
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Fiche produit</h2>
-      </div>
-
-      <div className="px-5 py-8">
-        <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex flex-wrap">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <nav className="mt-6">
+          <ul className="list-reset flex flex-wrap">
             <li>
-              <Link href="/admin" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin" className="underline">
                 Administration
               </Link>
             </li>
@@ -186,71 +165,37 @@ export default function AdminProductsId() {
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link href="/admin/products" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin/products" className="underline">
                 Liste des produits
               </Link>
             </li>
             <li>
               <span className="mx-2">/</span>
             </li>
-            <li className="text-gray-500">Fiche produit</li>
-          </ol>
+            <li>Fiche produit</li>
+          </ul>
         </nav>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-2 py-8">
-        <p className="text-xl text-gray-700">
-          ID produit: <span className="font-bold">{data.id || "-"}</span>
-        </p>
-        <p className="mt-2 text-xl text-gray-700">
-          Date de création: <span className="font-bold">{data.date || "-"}</span>
-        </p>
-      </div>
+        <div className="mt-8">
+          <p>
+            ID produit: <span className="font-bold">{data.id || "-"}</span>
+          </p>
+          <p>
+            Date de création: <span className="font-bold">{data.date || "-"}</span>
+          </p>
+        </div>
 
-      <div className="mx-auto max-w-7xl px-2 py-8">
-        {flashMessage && (
-          <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-            <ul>
-              {Object.values(flashMessage).map((msg, i) => (
-                <li key={i}>{msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {successMessage && (
-          <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-            <ul>
-              {Object.values(successMessage).map((msg, i) => (
-                <li key={i}>{msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {errorMessage && (
-          <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
-            <ul>
-              {Object.values(errorMessage).map((msg, i) => (
-                <li key={i}>* {msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="border border-gray-300 bg-white p-8">
-          <form className="grid grid-cols-1 gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
+        <div className="bg-light border-body-light mx-auto mt-6 max-w-xl rounded border p-8">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
-                Nom
-                <input type="text" name="name" value={data.name} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border px-4 py-2 focus:outline-none ${isEditing ? "border-gray-300 focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500"}`} />
-              </label>
+              <label className="mb-1 block">Nom</label>
+              <input type="text" name="name" value={data.name} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
+              <label className="mb-1 block">
                 Sous-catégorie
-                <select name="subCategory" disabled={!isEditing} value={data.subCategory} onChange={handleChange} className={`w-full rounded-md border px-4 py-2 focus:outline-none ${isEditing ? "border-gray-300 focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500"}`}>
+                <select name="subCategory" disabled={!isEditing} value={data.subCategory} onChange={handleChange} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`}>
                   <option value="" disabled>
                     -- Sélectionner --
                   </option>
@@ -269,36 +214,32 @@ export default function AdminProductsId() {
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
+              <label className="mb-1 block">
                 Genre
-                <select name="genre" value={data.genre} onChange={handleChange} disabled={!isEditing} className={`w-full rounded-md border px-4 py-2 focus:outline-none ${isEditing ? "border-gray-300 focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500"}`}>
+                <select name="genre" value={data.genre} onChange={handleChange} disabled={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`}>
                   <option value="" disabled>
                     -- Sélectionner --
                   </option>
-                  <option value="H">Homme</option>
-                  <option value="F">Femme</option>
-                  <option value="E">Enfant</option>
-                  <option value="U">Unisex</option>
+                  <option value="h">Homme</option>
+                  <option value="f">Femme</option>
+                  <option value="e">Enfant</option>
+                  <option value="u">Unisex</option>
                 </select>
               </label>
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
-                Prix en Euros (€)
-                <input type="text" name="price" value={data.price} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border px-4 py-2 focus:outline-none ${isEditing ? "border-gray-300 focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500"}`} />
-              </label>
+              <label className="mb-1 block">Prix en €</label>
+              <input type="text" name="price" value={data.price} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
-                Description
-                <textarea name="description" value={data.description} onChange={handleChange} readOnly={!isEditing} rows={4} className={`w-full rounded-md border px-4 py-2 focus:outline-none ${isEditing ? "border-gray-300 focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500"}`} />
-              </label>
+              <label className="mb-1 block">Description</label>
+              <textarea name="description" value={data.description} onChange={handleChange} readOnly={!isEditing} rows={4} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
+              <label className="mb-1 block">
                 Image
                 {data.imageUrl && (
                   <div className="mb-2">
@@ -308,6 +249,7 @@ export default function AdminProductsId() {
                 {isEditing && (
                   <input
                     type="file"
+                    readOnly={!isEditing}
                     name="imageFile"
                     accept="image/*"
                     onChange={(e) => {
@@ -319,233 +261,214 @@ export default function AdminProductsId() {
                         }));
                       }
                     }}
-                    className="block w-full text-sm text-gray-600 file:mr-4 file:rounded-md file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-400"
+                    className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`}
                   />
                 )}
               </label>
             </div>
 
-            <div className="flex flex-wrap justify-start gap-4 md:col-span-2">
-              <button type="button" disabled={isEditing} onClick={() => setIsEditing(true)} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-blue-300 text-white opacity-50" : "bg-blue-600 text-white hover:bg-blue-700"}`}>
-                Éditer
+            <div className="flex flex-wrap justify-start gap-4">
+              <button
+                type="button"
+                disabled={isEditing}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+                className={`text-light rounded bg-blue-500 px-5 py-2 transition ${isEditing ? "cursor-not-allowed opacity-15" : "cursor-pointer opacity-100"}`}
+              >
+                Modifier
               </button>
-              <button type="submit" disabled={!isEditing} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-gray-400 text-white opacity-50"}`}>
-                Enregistrer
+
+              <button type="submit" disabled={!isEditing} className={`btn-primary-black transition ${isEditing ? "cursor-pointer opacity-100" : "cursor-not-allowed opacity-15"}`}>
+                Enregistrer les modifications
               </button>
+
               <button
                 type="button"
                 disabled={!isEditing}
                 onClick={() => {
                   fetchIdWithVariants();
                   setIsEditing(false);
-                  setErrorMessage(null);
                 }}
-                className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-red-500 text-white hover:bg-red-600" : "bg-red-300 text-white opacity-50"}`}
+                className={`text-light rounded bg-red-500 px-3 py-2 transition ${isEditing ? "cursor-pointer opacity-100" : "cursor-not-allowed opacity-15"}`}
               >
                 Retour
               </button>
 
-              <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
-                Supprimer le produit&nbsp;*
+              <button type="button" disabled={isEditing} onClick={handleDelete} className={`text-light rounded bg-red-500 px-3 py-2 transition ${isEditing ? "cursor-not-allowed opacity-15" : "cursor-pointer opacity-100"}`}>
+                {`Supprimer le produit *`}
               </button>
-            </div>
-            <div>
-              <p disabled={isEditing} className={`text-sm ${isEditing ? "text-gray-300" : "text-gray-600"}`}>
-                * Attention : Cette action est irréversible !
-              </p>
+              <div className="mt-4">
+                <p disabled={isEditing} className={`text-body ${isEditing ? "opacity-15" : "opacity-100"}`}>
+                  * Attention : Cette action est irréversible !
+                </p>
+              </div>
             </div>
           </form>
         </div>
-      </div>
+      </section>
 
-      <div className="w-full border-b border-gray-300 px-5 py-2">
-        <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Déclinaisons</h2>
-        <p className="mt-2 text-sm text-gray-500">Pour mettre ce produit en ligne, créez ou activez au moins une déclinaison.</p>
-      </div>
-
-      {successVariantMessage && (
-        <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-          <ul>
-            {Object.values(successVariantMessage).map((msg, i) => (
-              <li key={i}>{msg}</li>
-            ))}
-          </ul>
+      <section className="mx-auto max-w-7xl p-8">
+        <div className="mt-8">
+          <h2 className="text-dark text-2xl md:text-4xl">Déclinaisons</h2>
+          <p className="mt-2">Pour mettre ce produit en ligne, créez ou activez au moins une déclinaison.</p>
         </div>
-      )}
 
-      {errorVariantMessage && (
-        <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
-          <ul>
-            {Object.values(errorVariantMessage).map((msg, i) => (
-              <li key={i}>* {msg}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <div className="px-5 py-8">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-800">
-            <thead className="bg-gray-200">
+        <div className="mt-6 overflow-x-auto rounded">
+          <table className="w-full text-left">
+            <thead className="bg-body-light text-dark border-body-light border">
               <tr>
-                <th className="px-4 py-4 font-bold">ID</th>
-                <th className="px-4 py-4 font-bold">Taille</th>
-                <th className="px-4 py-4 font-bold">Stock</th>
-                <th className="px-4 py-4 font-bold">Actif</th>
-                <th className="px-4 py-4 font-bold"></th>
+                <th className="p-2 align-middle">ID</th>
+                <th className="p-2 align-middle">Taille</th>
+                <th className="p-2 align-middle">Stock</th>
+                <th className="p-2 align-middle">Actif</th>
+                <th className="p-2 align-middle"></th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200">
-              {(!data || data.variants.length) === 0 && (
+            <tbody className="divide-body-light divide-y">
+              {(!data || data.variants.length === 0) && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-4 text-gray-500">
+                  <td colSpan={5} className="text-body p-2">
                     Aucune déclinaison pour le moment.
                   </td>
                 </tr>
               )}
 
               {data.variants.map((variant, index) => (
-                <tr key={variant.id} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"} transition-colors hover:bg-gray-100`}>
-                  <td className="px-4 py-4 align-top">{variant.id}</td>
-                  <td className="px-4 py-4 align-top">{variant.size === "no-size" ? "-" : variant.size}</td>
-                  <td className="px-4 py-4 align-top tabular-nums">{variant.stock}</td>
-                  <td className="px-4 py-4 align-top">
+                <tr key={variant.id}>
+                  <td className="p-2 align-middle">{variant.id}</td>
+                  <td className="p-2 align-middle">{variant.size === "no-size" ? "-" : variant.size}</td>
+                  <td className="p-2 align-middle tabular-nums">{variant.stock}</td>
+                  <td className="p-2 align-middle">
                     <span className={`block h-4 w-4 rounded-full ${variant.isActive ? "bg-green-500" : "bg-red-500"}`} aria-label={variant.isActive ? "Actif" : "Inactif"} />
                   </td>
-                  <td className="px-4 py-4 text-right align-top">
-                    <Link href={`/admin/product-variants/${variant.id}`} className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300">
+                  <td className="p-2 text-right align-top">
+                    <button onClick={() => router.push(`/admin/product-variants/${variant.id}`)} className="btn-primary-black" aria-label={`Voir les détails de la déclinaison ${variant.id}`}>
                       Éditer
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="mt-6">
           {!showAddVariant && (
             <button
               type="button"
               onClick={() => {
                 setShowAddVariant(true);
               }}
-              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="btn-primary-orange mt-6"
             >
               Créer une déclinaison
             </button>
           )}
         </div>
-      </div>
+      </section>
+
       {showAddVariant && (
-        <>
-          <div className="w-full border-b border-gray-300 px-5 py-2">
-            <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Créer une déclinaison</h2>
+        <section className="mx-auto max-w-7xl p-8">
+          <div className="mt-8">
+            <h2 className="text-dark text-2xl md:text-4xl">Créer une déclinaison</h2>
           </div>
-          <div className="px-5 py-8">
-            <div className="overflow-x-auto">
-              <form onSubmit={handleSubmitVariant}>
-                <input type="hidden" name="product" value={data.id} />
 
-                <table className="w-full text-left text-sm text-gray-800">
-                  <thead className="bg-gray-200">
-                    <tr>
-                      <th className="px-4 py-2 font-bold">ID</th>
-                      <th className="px-4 py-2 font-bold">Taille</th>
-                      <th className="px-4 py-2 font-bold">Stock</th>
-                      <th className="px-4 py-2 font-bold">Actif</th>
-                    </tr>
-                  </thead>
+          <form onSubmit={handleSubmitVariant}>
+            <input type="hidden" name="product" value={data.id} />
 
-                  <tbody className="divide-y divide-gray-200">
-                    {/* Ligne de saisie (nouveau variant) */}
-                    <tr className="bg-white">
-                      <td className="px-4 py-3 align-top text-gray-500">
-                        <span className="font-semibold">-</span>
-                      </td>
+            <div className="mt-6 overflow-x-auto rounded">
+              <table className="w-full text-left">
+                <thead className="bg-body-light text-dark border-body-light border">
+                  <tr>
+                    <th className="p-2 align-middle">ID</th>
+                    <th className="p-2 align-middle">Taille</th>
+                    <th className="p-2 align-middle">Stock</th>
+                    <th className="p-2 align-middle">Actif</th>
+                  </tr>
+                </thead>
 
-                      <td className="px-4 py-3 align-top">
-                        <label className="sr-only" htmlFor="size">
-                          Taille
-                        </label>
-                        <select id="size" name="size" defaultValue="no-size" className="mt-1 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-gray-400/40 focus:outline-none">
-                          <option value="no-size">— Aucune taille —</option>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="p-2 align-middle">-</td>
 
-                          <optgroup label="Tailles vêtements">
-                            <option value="TU">TU</option>
-                            <option value="XXS">XXS</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                            <option value="XXXL">XXXL</option>
-                          </optgroup>
+                    <td className="p-2 align-middle">
+                      <label className="sr-only" htmlFor="size">
+                        Taille
+                      </label>
+                      <select id="size" name="size" defaultValue="no-size" className="border-body-light min-w-120 rounded border px-4 py-2 focus:outline">
+                        <option value="no-size">— Aucune taille —</option>
 
-                          <optgroup label="Tailles chaussures">
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
-                            <option value="35">35</option>
-                            <option value="36">36</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                            <option value="43">43</option>
-                            <option value="44">44</option>
-                            <option value="45">45</option>
-                            <option value="46">46</option>
-                            <option value="47">47</option>
-                            <option value="48">48</option>
-                            <option value="49">49</option>
-                            <option value="50">50</option>
-                          </optgroup>
-                        </select>
+                        <optgroup label="Tailles vêtements">
+                          <option value="TU">TU</option>
+                          <option value="XXS">XXS</option>
+                          <option value="XS">XS</option>
+                          <option value="S">S</option>
+                          <option value="M">M</option>
+                          <option value="L">L</option>
+                          <option value="XL">XL</option>
+                          <option value="XXL">XXL</option>
+                          <option value="XXXL">XXXL</option>
+                        </optgroup>
 
-                        <p className="mt-1 text-xs text-gray-500">Si le produit n’a pas de taille, laissez “Aucune taille”.</p>
-                      </td>
+                        <optgroup label="Tailles chaussures">
+                          <option value="24">24</option>
+                          <option value="25">25</option>
+                          <option value="26">26</option>
+                          <option value="27">27</option>
+                          <option value="28">28</option>
+                          <option value="29">29</option>
+                          <option value="30">30</option>
+                          <option value="31">31</option>
+                          <option value="32">32</option>
+                          <option value="33">33</option>
+                          <option value="34">34</option>
+                          <option value="35">35</option>
+                          <option value="36">36</option>
+                          <option value="37">37</option>
+                          <option value="38">38</option>
+                          <option value="39">39</option>
+                          <option value="40">40</option>
+                          <option value="41">41</option>
+                          <option value="42">42</option>
+                          <option value="43">43</option>
+                          <option value="44">44</option>
+                          <option value="45">45</option>
+                          <option value="46">46</option>
+                          <option value="47">47</option>
+                          <option value="48">48</option>
+                          <option value="49">49</option>
+                          <option value="50">50</option>
+                        </optgroup>
+                      </select>
+                    </td>
 
-                      <td className="px-4 py-3 align-top">
-                        <label className="sr-only" htmlFor="stock">
-                          Stock
-                        </label>
-                        <input id="stock" name="stock" type="number" min={0} inputMode="numeric" className="mt-1 w-28 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-gray-400/40 focus:outline-none" />
-                      </td>
+                    <td className="p-2 align-middle">
+                      <label className="sr-only" htmlFor="stock">
+                        Stock
+                      </label>
+                      <input id="stock" name="stock" type="number" min={0} inputMode="numeric" className="border-body-light min-w-120 rounded border px-4 py-2 focus:outline" />
+                    </td>
 
-                      <td className="px-4 py-3 align-top">
-                        <label className="inline-flex items-center gap-2">
-                          <span className="font-semibold">Actif :</span>
-                          <input name="active" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                        </label>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="mt-6 flex items-center gap-2">
-                  <button type="submit" className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60">
-                    Ajouter
-                  </button>
-                  <button type="button" onClick={() => setShowAddVariant(false)} className="rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300">
-                    Annuler
-                  </button>
-                </div>
-              </form>
+                    <td className="p-2 align-middle">
+                      <label className="sr-only" htmlFor="active">
+                        Actif
+                      </label>
+                      <input id="active" name="active" type="checkbox" className="h-5 w-5" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
-        </>
+            <div className="mt-6 flex items-center gap-2">
+              <button type="submit" className="btn-primary-orange">
+                Ajouter
+              </button>
+              <button type="button" onClick={() => setShowAddVariant(false)} className="btn-secondary-orange">
+                Annuler
+              </button>
+            </div>
+          </form>
+        </section>
       )}
-    </>
+    </main>
   );
 }

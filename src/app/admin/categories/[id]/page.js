@@ -2,16 +2,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import FlashMessage from "@/context/FlashMessage";
-//import Image from "next/image";
+import { FlashMessageContext } from "@/context/FlashMessage";
 
 export default function AdminCategoriesId() {
   const params = useParams();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const { setFlashMessage } = useContext(FlashMessage);
+  const { setFlashMessage } = useContext(FlashMessageContext);
 
   const [data, setData] = useState({
     name: "",
@@ -59,11 +56,9 @@ export default function AdminCategoriesId() {
         throw json;
       }
 
-      setSuccessMessage(json);
-      setErrorMessage(null);
+      setFlashMessage(json);
     } catch (err) {
-      setErrorMessage(err);
-      setSuccessMessage(null);
+      setFlashMessage(err);
     }
   };
 
@@ -83,35 +78,20 @@ export default function AdminCategoriesId() {
         }
         throw json;
       }
-      setFlashMessage(json);
       router.replace("/admin/categories");
+      setFlashMessage(json);
     } catch (err) {
-      setErrorMessage(err);
-      setSuccessMessage(null);
+      setFlashMessage(err);
     }
   };
 
-  useEffect(() => {
-    if (successMessage) {
-      const timeout = setTimeout(() => {
-        setSuccessMessage(null);
-      }, 3000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [successMessage]);
-
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Catégorie</h2>
-      </div>
-
-      <div className="px-8 py-6">
-        <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex flex-wrap">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <nav className="mt-6">
+          <ul className="list-reset flex flex-wrap">
             <li>
-              <Link href="/admin" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin" className="underline">
                 Administration
               </Link>
             </li>
@@ -119,80 +99,64 @@ export default function AdminCategoriesId() {
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link href="/admin/categories" className="font-medium text-gray-700 hover:underline">
+              <Link href="/admin/categories" className="underline">
                 Liste des catégories
               </Link>
             </li>
             <li>
               <span className="mx-2">/</span>
             </li>
-            <li className="text-gray-500">Catégorie</li>
-          </ol>
+            <li>Catégorie</li>
+          </ul>
         </nav>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-2 py-8">
-        {successMessage && (
-          <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-            <ul>
-              {Object.values(successMessage).map((msg, i) => (
-                <li key={i}>{msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {errorMessage && (
-          <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
-            <ul>
-              {Object.values(errorMessage).map((msg, i) => (
-                <li key={i}>* {msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="border border-gray-300 bg-white p-8">
-          <form className="grid gap-6" onSubmit={handleSubmit}>
+        <div className="bg-light border-body-light mx-auto mt-6 max-w-xl rounded border p-8">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="mb-1 block text-sm text-gray-700">
-                Nom
-                <input type="text" name="name" value={data.name} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border px-4 py-2 focus:outline-none ${isEditing ? "border-gray-300 focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500"}`} />
-              </label>
+              <label className="mb-1 block">Nom</label>
+              <input type="text" name="name" value={data.name} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div className="flex flex-wrap justify-start gap-4">
-              <button type="button" disabled={isEditing} onClick={() => setIsEditing(true)} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-blue-300 text-white opacity-50" : "bg-blue-600 text-white hover:bg-blue-700"}`}>
-                Éditer
+              <button
+                type="button"
+                disabled={isEditing}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+                className={`text-light rounded bg-blue-500 px-5 py-2 transition ${isEditing ? "cursor-not-allowed opacity-15" : "cursor-pointer opacity-100"}`}
+              >
+                Modifier
               </button>
-              <button type="submit" disabled={!isEditing} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-gray-800 text-white hover:bg-gray-900" : "bg-gray-400 text-white opacity-50"}`}>
-                Enregistrer
+
+              <button type="submit" disabled={!isEditing} className={`btn-primary-black transition ${isEditing ? "cursor-pointer opacity-100" : "cursor-not-allowed opacity-15"}`}>
+                Enregistrer les modifications
               </button>
+
               <button
                 type="button"
                 disabled={!isEditing}
                 onClick={() => {
                   fetchCategoriesId();
                   setIsEditing(false);
-                  setErrorMessage(null);
                 }}
-                className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-red-500 text-white hover:bg-red-600" : "bg-red-300 text-white opacity-50"}`}
+                className={`text-light rounded bg-red-500 px-3 py-2 transition ${isEditing ? "cursor-pointer opacity-100" : "cursor-not-allowed opacity-15"}`}
               >
                 Retour
               </button>
 
-              <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
-                Supprimer la catégorie&nbsp;*
+              <button type="button" disabled={isEditing} onClick={handleDelete} className={`text-light rounded bg-red-500 px-3 py-2 transition ${isEditing ? "cursor-not-allowed opacity-15" : "cursor-pointer opacity-100"}`}>
+                {`Supprimer la catégorie *`}
               </button>
+              <div className="mt-4">
+                <p disabled={isEditing} className={`text-body ${isEditing ? "opacity-15" : "opacity-100"}`}>
+                  * Attention : Cette action est irréversible !
+                </p>
+              </div>
             </div>
           </form>
-          <div className="mt-4">
-            <p disabled={isEditing} className={`text-sm ${isEditing ? "text-gray-300" : "text-black"}`}>
-              * Attention : Cette action est irréversible !
-            </p>
-          </div>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

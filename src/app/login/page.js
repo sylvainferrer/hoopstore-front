@@ -1,22 +1,12 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState, useContext, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import UserName from "@/context/UserName";
 
-export default function Login() {
-  return (
-    <Suspense fallback={<div>Chargement…</div>}>
-      <LoginInner />
-    </Suspense>
-  );
-}
-
-function LoginInner() {
+export default function LoginInner() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(null);
   const [expiredMessage, setExpiredMessage] = useState(null);
-  const { setPrenom, setRole } = useContext(UserName);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -24,8 +14,6 @@ function LoginInner() {
 
     if (auth === "unauthorized" || auth === "required" || auth === "invalid") {
       setExpiredMessage("Veuillez vous (re)connecter.");
-      setPrenom(null);
-      setRole(null);
     } else {
       setExpiredMessage(null);
     }
@@ -55,21 +43,16 @@ function LoginInner() {
       if (!res.ok) {
         throw json;
       }
-      setRole(json.role);
-      setPrenom(json.firstname);
-      router.push(`${process.env.NEXT_PUBLIC_API_URL}`);
+      window.location.href = "/";
     } catch (err) {
       setErrorMessage(err);
     }
   }
 
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Connexion</h2>
-      </div>
-      <div className="mx-auto max-w-2xl p-2 py-8">
-        <div className="rounded-2xl border border-orange-200 bg-white p-8">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <div className="bg-light border-body-light mx-auto max-w-lg rounded border p-8">
           {errorMessage && (
             <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
               <ul>
@@ -82,37 +65,37 @@ function LoginInner() {
           {expiredMessage && <div className="mb-4 rounded border border-yellow-300 bg-yellow-100 p-3 text-yellow-800">{expiredMessage}</div>}
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="email" className="mb-1 block">
                 Email
               </label>
-              <input type="email" id="email" name="email" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="email" id="email" name="email" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="password" className="mb-1 block">
                 Mot de passe
               </label>
-              <input type="password" id="password" name="password" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="password" id="password" name="password" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
 
-            <button type="submit" className="cursor-pointer rounded-md bg-gray-950 px-5 py-2 text-white transition hover:bg-gray-800">
+            <button type="submit" className="btn-primary-orange mt-4">
               Se connecter
             </button>
           </form>
 
-          <p className="mt-4 text-sm text-gray-950">
+          <p className="mt-4">
             Pas de compte ?{" "}
-            <Link href="/register" className="text-gray-600 hover:underline">
+            <Link href="/register" className="underline">
               Inscrivez-vous
             </Link>
             <br />
             Mot de passe perdu ?{" "}
-            <Link href="/password/forgot" className="text-gray-600 hover:underline">
+            <Link href="/password/forgot" className="underline">
               Cliquez ici
             </Link>
           </p>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

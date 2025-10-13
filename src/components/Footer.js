@@ -1,22 +1,23 @@
 import React from "react";
+import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="w-full bg-gray-950">
-      <div className="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-white">
+    <footer className="bg-dark mt-auto w-full">
+      <div className="text-light mx-auto max-w-7xl p-8 text-center">
         <nav className="mb-4 space-x-6">
-          <a href="/about" className="">
+          <Link href="/about" className="">
             À propos
-          </a>
-          <a href="/contact" className="">
+          </Link>
+          <Link href="/contact" className="">
             Contact
-          </a>
-          <a href="/mentions-legales" className="">
+          </Link>
+          <Link href="/mentions-legales" className="">
             Mentions légales
-          </a>
-          <a href="/cgv" className="">
+          </Link>
+          <Link href="/cgv" className="">
             CGV/CGU
-          </a>
+          </Link>
         </nav>
         <span className="text-xs">© {new Date().getFullYear()} HoopStore. Tous droits réservés.</span>
       </div>

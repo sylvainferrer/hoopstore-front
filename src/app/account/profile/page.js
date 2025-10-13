@@ -1,17 +1,15 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
-import FlashMessage from "@/context/FlashMessage";
-import UserName from "@/context/UserName";
+import { FlashMessageContext } from "@/context/FlashMessage";
+import { AuthContext } from "@/context/Auth";
 import Link from "next/link";
 
 export default function Account() {
   const router = useRouter();
-  const { setFlashMessage } = useContext(FlashMessage);
-  const { setPrenom, setRole } = useContext(UserName);
+  const { setFlashMessage } = useContext(FlashMessageContext);
+  const { setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [data, setData] = useState({
     firstname: "",
     lastname: "",
@@ -80,12 +78,9 @@ export default function Account() {
         }
         throw json;
       }
-
-      setSuccessMessage(json);
-      setErrorMessage(null);
+      setFlashMessage(json);
     } catch (err) {
-      setErrorMessage(err);
-      setSuccessMessage(null);
+      setFlashMessage(err);
     }
   };
 
@@ -105,129 +100,86 @@ export default function Account() {
         }
         throw json;
       }
-      setFlashMessage(json);
-      setRole(null);
-      setPrenom(null);
+      setUser("");
       router.replace("/");
+      setFlashMessage(json);
     } catch (err) {
-      setErrorMessage(err);
+      setFlashMessage(err);
     }
   };
 
-  useEffect(() => {
-    if (successMessage) {
-      const timeout = setTimeout(() => {
-        setSuccessMessage(null);
-      }, 3000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [successMessage]);
-
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Mes informations personnelles</h2>
-      </div>
-
-      <div className="px-8 py-6">
-        <nav className="text-sm text-gray-600">
-          <ol className="list-reset flex flex-wrap">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl">
+        <nav className="mt-6">
+          <ul className="list-reset flex flex-wrap">
             <li>
-              <Link href="/account" className="font-medium text-gray-700 hover:underline">
+              <Link href="/account" className="underline">
                 Mon compte
               </Link>
             </li>
             <li>
               <span className="mx-2">/</span>
             </li>
-            <li className="text-gray-500">Mes informations personnelles</li>
-          </ol>
+            <li>Mes informations personnelles</li>
+          </ul>
         </nav>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-2 py-8">
-        {successMessage && (
-          <div className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-            <ul>
-              {Object.values(successMessage).map((msg, i) => (
-                <li key={i}>{msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {errorMessage && (
-          <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
-            <ul>
-              {Object.values(errorMessage).map((msg, i) => (
-                <li key={i}>* {msg}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="border border-gray-300 bg-white p-8">
-          <form className="grid grid-cols-1 gap-6 md:grid-cols-2" onSubmit={handleSubmit}>
-            {/* Prénom + Nom */}
+        <div className="bg-light border-body-light mx-auto mt-6 max-w-xl rounded border p-8">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="mb-1 block text-sm text-gray-700">Prénom</label>
-              <input type="text" name="firstname" value={data.firstname || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
+              <label className="mb-1 block">Prénom</label>
+              <input type="text" name="firstname" value={data.firstname || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">Nom</label>
-              <input type="text" name="lastname" value={data.lastname || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
-            </div>
-
-            {/* Date de naissance + Email */}
-            <div>
-              <label className="mb-1 block text-sm text-gray-700">Date de naissance</label>
-              <input type="date" name="birthday" value={data.birthday || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
+              <label className="mb-1 block">Nom</label>
+              <input type="text" name="lastname" value={data.lastname || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">Email</label>
-              <input type="email" name="email" value={data.email || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
-            </div>
-
-            {/* Adresse sur toute la ligne */}
-            <div className="md:col-span-2">
-              <label className="mb-1 block text-sm text-gray-700">Adresse</label>
-              <input type="text" name="adresse" value={data.adresse || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
-            </div>
-
-            {/* Code Postal + Ville */}
-            <div>
-              <label className="mb-1 block text-sm text-gray-700">Code Postal</label>
-              <input type="text" name="codePostal" value={data.codePostal || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
+              <label className="mb-1 block">Date de naissance</label>
+              <input type="date" name="birthday" value={data.birthday || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
             <div>
-              <label className="mb-1 block text-sm text-gray-700">Ville</label>
-              <input type="text" name="ville" value={data.ville || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
+              <label className="mb-1 block">Email</label>
+              <input type="email" name="email" value={data.email || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
-            {/* Mot de passe sur toute la largeur */}
-            <div className="md:col-span-2">
-              <label className="mb-1 block text-sm text-gray-700">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
-              <input type="password" name="password" value={data.password || ""} onChange={handleChange} readOnly={!isEditing} className={`w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none ${isEditing ? "focus:ring-2 focus:ring-gray-400" : "cursor-not-allowed bg-gray-100 text-gray-500"}`} />
+            <div>
+              <label className="mb-1 block">Adresse</label>
+              <input type="text" name="adresse" value={data.adresse || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
             </div>
 
-            {/* Boutons, inchangés */}
-            <div className="flex flex-wrap justify-start gap-4 md:col-span-2">
+            <div>
+              <label className="mb-1 block">Code Postal</label>
+              <input type="text" name="codePostal" value={data.codePostal || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
+            </div>
+
+            <div>
+              <label className="mb-1 block">Ville</label>
+              <input type="text" name="ville" value={data.ville || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
+            </div>
+
+            <div>
+              <label className="mb-1 block">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+              <input type="password" name="password" value={data.password || ""} onChange={handleChange} readOnly={!isEditing} className={`border-body-light w-full rounded border px-4 py-2 ${isEditing ? "focus:outline" : "cursor-not-allowed opacity-60 focus:outline-none"}`} />
+            </div>
+
+            <div className="flex flex-wrap justify-start gap-4">
               <button
                 type="button"
                 disabled={isEditing}
                 onClick={() => {
                   setIsEditing(true);
                 }}
-                className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-blue-300 text-white opacity-50" : "cursor-pointer bg-blue-600 text-white hover:bg-blue-700"}`}
+                className={`text-light rounded bg-blue-500 px-5 py-2 transition ${isEditing ? "cursor-not-allowed opacity-15" : "cursor-pointer opacity-100"}`}
               >
                 Modifier
               </button>
 
-              <button type="submit" disabled={!isEditing} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "bg-gray-950 text-white" : "bg-gray-400 text-white opacity-50"}`}>
+              <button type="submit" disabled={!isEditing} className={`btn-primary-black transition ${isEditing ? "cursor-pointer opacity-100" : "cursor-not-allowed opacity-15"}`}>
                 Enregistrer les modifications
               </button>
 
@@ -237,25 +189,24 @@ export default function Account() {
                 onClick={() => {
                   fetchUsersMe();
                   setIsEditing(false);
-                  setErrorMessage(null);
                 }}
-                className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-pointer bg-red-500 text-white hover:bg-red-600" : "cursor-not-allowed bg-red-300 text-white opacity-50"}`}
+                className={`text-light rounded bg-red-500 px-3 py-2 transition ${isEditing ? "cursor-pointer opacity-100" : "cursor-not-allowed opacity-15"}`}
               >
                 Retour
               </button>
 
-              <button type="button" disabled={isEditing} onClick={handleDelete} className={`w-auto rounded-md px-5 py-2 transition ${isEditing ? "cursor-not-allowed bg-red-300 text-white opacity-50" : "cursor-pointer bg-red-500 text-white hover:bg-red-600"}`}>
+              <button type="button" disabled={isEditing} onClick={handleDelete} className={`text-light rounded bg-red-500 px-3 py-2 transition ${isEditing ? "cursor-not-allowed opacity-15" : "cursor-pointer opacity-100"}`}>
                 {`Supprimer l'utilisateur *`}
               </button>
             </div>
           </form>
           <div className="mt-4">
-            <p disabled={isEditing} className={`text-sm ${isEditing ? "text-gray-300" : "text-black"}`}>
+            <p disabled={isEditing} className={`text-body ${isEditing ? "opacity-15" : "opacity-100"}`}>
               * Attention : Cette action est irréversible !
             </p>
           </div>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

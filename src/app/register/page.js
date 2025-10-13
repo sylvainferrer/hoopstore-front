@@ -48,12 +48,9 @@ export default function Register() {
   };
 
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Inscription</h2>
-      </div>
-      <div className="mx-auto max-w-7xl p-2 py-8">
-        <div className="border border-orange-200 bg-white p-8">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <div className="bg-light border-body-light mx-auto max-w-xl rounded border p-8">
           {successMessage && (
             <div role="status" aria-live="polite" aria-label="Succès du formulaire" className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
               <ul>
@@ -81,65 +78,65 @@ export default function Register() {
           )}
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="firstname" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="firstname" className="mb-1 block">
                 Prénom
               </label>
-              <input type="text" id="firstname" name="firstname" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="text" id="firstname" name="firstname" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="lastname" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="lastname" className="mb-1 block">
                 Nom
               </label>
-              <input type="text" id="lastname" name="lastname" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="text" id="lastname" name="lastname" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="birthday" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="birthday" className="mb-1 block">
                 Date de naissance
               </label>
-              <input type="date" id="birthday" name="birthday" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="date" id="birthday" name="birthday" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="email" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="email" className="mb-1 block">
                 Email
               </label>
-              <input type="email" id="email" name="email" autoComplete="email" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="email" id="email" name="email" autoComplete="email" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="adresse" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="adresse" className="mb-1 block">
                 Adresse
               </label>
-              <input type="text" id="adresse" name="adresse" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="text" id="adresse" name="adresse" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="codePostal" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="codePostal" className="mb-1 block">
                 Code Postal
               </label>
-              <input type="text" id="codePostal" name="codePostal" pattern="[0-9]{5}" title="Entrez un code postal à 5 chiffres" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="text" id="codePostal" name="codePostal" pattern="[0-9]{5}" title="Entrez un code postal à 5 chiffres" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="ville" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="ville" className="mb-1 block">
                 Ville
               </label>
-              <input type="text" id="ville" name="ville" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="text" id="ville" name="ville" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
             <div>
-              <label htmlFor="password" className="mb-1 block text-sm text-gray-950">
+              <label htmlFor="password" className="mb-1 block">
                 Password
               </label>
-              <input type="password" id="password" name="password" autoComplete="new-password" className="w-full rounded-md border border-orange-200 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none" required />
+              <input type="password" id="password" name="password" autoComplete="new-password" className="border-body-light w-full rounded border px-4 py-2" required />
             </div>
-            <button type="submit" className="cursor-pointer rounded-md bg-gray-800 px-5 py-2 text-white transition hover:bg-gray-900">
+            <button type="submit" className="btn-primary-orange mt-4">
               {"S'inscrire"}
             </button>
           </form>
-          <p className="mt-4 text-sm text-gray-600">
+          <p className="mt-4">
             Déjà inscrit ?{" "}
-            <Link href="/login" className="text-gray-950 hover:underline">
+            <Link href="/login" className="underline">
               Connectez-vous
             </Link>
           </p>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

@@ -1,22 +1,35 @@
 "use client";
 import { createContext, useState, useEffect } from "react";
 
-const FlashMessage = createContext();
+const FlashMessageContext = createContext();
 
 export function FlashMessageProvider({ children }) {
   const [flashMessage, setFlashMessage] = useState(null);
 
-  useEffect(() => {
-    if (flashMessage) {
-      const timer = setTimeout(() => {
-        setFlashMessage(null);
-      }, 6000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [flashMessage]);
-
-  return <FlashMessage.Provider value={{ flashMessage, setFlashMessage }}>{children}</FlashMessage.Provider>;
+  return (
+    <FlashMessageContext.Provider value={{ flashMessage, setFlashMessage }}>
+      {children}
+      {flashMessage && (
+        <div id="flash-message" className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="border-body-light bg-light m-6 w-full max-w-xl rounded border p-6">
+            <ul>
+              {Object.values(flashMessage).map((msg, i) => (
+                <li className="mb-1" key={i}>
+                  * {msg}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 text-center">
+              <button onClick={() => setFlashMessage(null)} className="btn-primary-orange">
+                Fermer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </FlashMessageContext.Provider>
+  );
 }
 
-export default FlashMessage;
+export { FlashMessageContext };
+export default FlashMessageProvider;

@@ -71,46 +71,52 @@ export default function Cart() {
   };
 
   return (
-    <>
-      <div className="bg-orange-50 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-gray-950 md:text-4xl">Mon panier</h2>
-      </div>
-      <div className="mx-auto max-w-7xl p-2 py-8">
-        <div className="border border-gray-300 bg-white p-8">
+    <main className="py-20">
+      <section className="mx-auto max-w-7xl p-8">
+        <div className="border-body-light bg-light rounded border p-4">
           {cart.products.length === 0 ? (
             <p>Votre panier est vide.</p>
           ) : (
-            <ul className="divide-y">
+            <div className="divide-body-light divide-y">
               {cart.products.map((product, i) => (
-                <li key={i} className="flex justify-between py-4">
-                  <div>
-                    <div className="font-medium">ID Produit: {product.variantId}</div>
-                    <div>Nom: {product.name}</div>
-                    <div>Size: {product.size}</div>
-                    <div>Prix: {product.price}</div>
-
-                    <div className="flex flex-wrap items-center gap-2">
-                      <label className="text-sm text-gray-700" htmlFor={`qty-${product.variantId}`}>
+                <div key={i} className="flex flex-wrap items-end justify-between">
+                  <div className="p-4">
+                    <div>
+                      Réference Produit: <span className="font-bold">{product.variantId}</span>
+                    </div>
+                    <div>
+                      Nom: <span className="font-bold">{product.name}</span>
+                    </div>
+                    <div>
+                      Size: <span className="font-bold">{product.size}</span>
+                    </div>
+                    <div>
+                      Prix: <span className="font-bold">{product.price} €</span>
+                    </div>
+                    <div>
+                      <label className="" htmlFor={`qty-${product.variantId}`}>
                         Quantité
                       </label>
-                      <input id={`qty-${product.variantId}`} type="number" min={1} className="w-20 rounded border border-gray-300 px-2 py-1 text-sm" value={product.quantity} onChange={(e) => updateQty(product.variantId, e.target.value)} />
-                      <button onClick={() => removeItem(product.variantId)} className="rounded border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50">
-                        Supprimer
-                      </button>
+                      <input id={`qty-${product.variantId}`} type="number" min={1} className="border-body-light w-full rounded border px-4 py-2 focus:outline" value={product.quantity} onChange={(e) => updateQty(product.variantId, e.target.value)} />
                     </div>
                   </div>
-                </li>
+                  <div className="p-4">
+                    <button onClick={() => removeItem(product.variantId)} className="rounded border border-red-300 px-3 py-2 text-red-600">
+                      Supprimer
+                    </button>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </div>
 
         <div className="mt-6 flex gap-3">
-          <button onClick={handleCheckout} disabled={loading || cart.products.length === 0} className="inline-block rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white hover:opacity-90 disabled:opacity-50">
+          <button onClick={handleCheckout} disabled={loading || cart.products.length === 0} className="btn-primary-black">
             {loading ? "Redirection vers Stripe..." : "Payer"}
           </button>
         </div>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }
