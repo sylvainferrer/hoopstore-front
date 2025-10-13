@@ -1,12 +1,10 @@
 "use client";
 import { createContext, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+function AuthProvider({ children }) {
   const [user, setUser] = useState({ firstname: "", role: "" });
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     async function fetchAuth() {
@@ -28,13 +26,6 @@ export function AuthProvider({ children }) {
 
     fetchAuth();
   }, []);
-
-  useEffect(() => {
-    const authParam = searchParams.get("auth");
-    if (authParam === "required" || authParam === "invalid") {
-      setUser({ firstname: "", role: "" });
-    }
-  }, [searchParams]);
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 }
