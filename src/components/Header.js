@@ -148,11 +148,11 @@ export default function Header() {
                 {!user.firstname ? (
                   <>
                     <Link className="btn-secondary-orange" href="/register">
-                      S'inscrire
+                      {`S'inscrire`}
                     </Link>
 
                     <Link href="/login" className="btn-primary-orange">
-                      S'identifier
+                      {`S'identifier`}
                     </Link>
                   </>
                 ) : (
@@ -277,7 +277,7 @@ export default function Header() {
               {!user.firstname ? (
                 <>
                   <Link href="/login" className="btn-secondary-orange block w-full text-center" onClick={closeMenu}>
-                    S'identifier
+                    {`S'identifier`}
                   </Link>
 
                   <Link href="/login" className="btn-primary-orange block w-full text-center" onClick={closeMenu}>
