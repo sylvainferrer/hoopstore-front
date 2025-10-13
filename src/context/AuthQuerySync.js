@@ -9,7 +9,7 @@ export default function AuthQuerySync() {
 
   useEffect(() => {
     const authParam = searchParams.get("auth");
-    if (authParam === "required" || authParam === "invalid") {
+    if (authParam === "unauthorized" || authParam === "required" || authParam === "invalid") {
       setUser({ firstname: "", role: "" });
     }
   }, [searchParams, setUser]);

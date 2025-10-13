@@ -8,7 +8,7 @@ import { AuthContext } from "@/context/Auth";
 export default function Header() {
   const router = useRouter();
   const { setFlashMessage } = useContext(FlashMessageContext);
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Empêcher le scroll quand le menu mobile est ouvert + fermer avec Échap
@@ -41,7 +41,9 @@ export default function Header() {
         throw json;
       }
       setFlashMessage(json);
-      window.location.href = "/";
+      setUser("");
+      //window.location.href = "/";
+      router.replace("/");
     } catch (err) {
       console.error(err);
     }

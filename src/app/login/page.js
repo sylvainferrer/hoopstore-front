@@ -1,29 +1,19 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState, useEffect, Suspense } from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext } from "react";
+import { AuthContext } from "@/context/Auth";
+import { FlashMessageContext } from "@/context/FlashMessage";
 import Link from "next/link";
 
 export default function LoginInner() {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [expiredMessage, setExpiredMessage] = useState(null);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const auth = searchParams.get("auth");
-
-    if (auth === "unauthorized" || auth === "required" || auth === "invalid") {
-      setExpiredMessage("Veuillez vous (re)connecter.");
-    } else {
-      setExpiredMessage(null);
-    }
-  }, []);
+  const { setUser } = useContext(AuthContext);
+  const { setFlashMessage } = useContext(FlashMessageContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     router.replace("/login");
-    setExpiredMessage(null);
 
     const login = {
       email: e.target.email.value,
@@ -43,9 +33,22 @@ export default function LoginInner() {
       if (!res.ok) {
         throw json;
       }
-      window.location.href = "/";
+
+      const resMe = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (resMe.ok) {
+        const me = await resMe.json();
+        setUser({ firstname: me.firstname || "", role: me.role || "" });
+      } else {
+        setUser({ firstname: "", role: "" });
+      }
+
+      router.replace("/");
     } catch (err) {
-      setErrorMessage(err);
+      setFlashMessage(err);
     }
   }
 
@@ -53,16 +56,6 @@ export default function LoginInner() {
     <main className="py-20">
       <section className="mx-auto max-w-7xl p-8">
         <div className="bg-light border-body-light mx-auto max-w-lg rounded border p-8">
-          {errorMessage && (
-            <div className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
-              <ul>
-                {Object.values(errorMessage).map((msg, i) => (
-                  <li key={i}>* {msg}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {expiredMessage && <div className="mb-4 rounded border border-yellow-300 bg-yellow-100 p-3 text-yellow-800">{expiredMessage}</div>}
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="mb-1 block">

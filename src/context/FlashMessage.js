@@ -11,7 +11,7 @@ export function FlashMessageProvider({ children }) {
       {children}
       {flashMessage && (
         <div id="flash-message" className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="border-body-light bg-light m-6 w-full max-w-xl rounded border p-6">
+          <div className="border-body-light bg-light m-6 w-full max-w-md rounded border p-6">
             <ul>
               {Object.values(flashMessage).map((msg, i) => (
                 <li className="mb-1" key={i}>

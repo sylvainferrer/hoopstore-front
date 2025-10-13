@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { FlashMessageContext } from "@/context/FlashMessage";
 import Link from "next/link";
 
 export default function Register() {
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { setFlashMessage } = useContext(FlashMessageContext);
+  const router = useRouter();
 
   const handleSubmit = async function (e) {
     e.preventDefault();
@@ -38,12 +40,11 @@ export default function Register() {
         throw json;
       }
 
-      setErrorMessage(null);
-      setSuccessMessage(json);
+      setFlashMessage(json);
       e.target.reset();
+      router.replace("/login");
     } catch (err) {
-      setSuccessMessage(null);
-      setErrorMessage(err);
+      setFlashMessage(err);
     }
   };
 
@@ -51,31 +52,6 @@ export default function Register() {
     <main className="py-20">
       <section className="mx-auto max-w-7xl p-8">
         <div className="bg-light border-body-light mx-auto max-w-xl rounded border p-8">
-          {successMessage && (
-            <div role="status" aria-live="polite" aria-label="Succès du formulaire" className="mb-4 rounded border border-green-300 bg-green-100 p-4 text-green-800">
-              <ul>
-                {Object.values(successMessage).map((msg, i) => (
-                  <li key={i}>{msg}</li>
-                ))}
-                <li className="mt-2">
-                  <Link href="/login" className="text-blue-600 hover:underline">
-                    Connectez-vous
-                  </Link>
-                  .
-                </li>
-              </ul>
-            </div>
-          )}
-
-          {errorMessage && (
-            <div role="alert" aria-live="assertive" aria-label="Erreurs de formulaire" className="mb-4 rounded border border-red-300 bg-red-100 p-4 text-red-800">
-              <ul>
-                {Object.values(errorMessage).map((msg, i) => (
-                  <li key={i}>* {msg}</li>
-                ))}
-              </ul>
-            </div>
-          )}
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="firstname" className="mb-1 block">
