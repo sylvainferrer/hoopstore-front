@@ -220,14 +220,14 @@ export default function Header() {
 
               {/* Accessoires */}
               <div className="text-lg">
-                <Link href="/products/category/accessoires" className="block rounded px-3 py-2 font-semibold" onClick={closeMenu}>
+                <Link href="/products?category=accessoires" className="block rounded px-3 py-2 font-semibold" onClick={closeMenu}>
                   Accessoires
                 </Link>
                 <div className="space-y-1">
-                  <Link href="/products/subcategory/ballons" className="block rounded px-3 py-2" onClick={closeMenu}>
+                  <Link href="/products?subcategory=ballons" className="block rounded px-3 py-2" onClick={closeMenu}>
                     Ballons
                   </Link>
-                  <Link href="/products/subcategory/paniers" className="block rounded px-3 py-2" onClick={closeMenu}>
+                  <Link href="/products?subcategory=paniers" className="block rounded px-3 py-2" onClick={closeMenu}>
                     Paniers
                   </Link>
                 </div>
@@ -235,14 +235,14 @@ export default function Header() {
 
               {/* Vêtements */}
               <div className="text-lg">
-                <Link href="/products/category/vetements" className="block rounded px-3 py-2 font-semibold" onClick={closeMenu}>
+                <Link href="/products?category=vetements" className="block rounded px-3 py-2 font-semibold" onClick={closeMenu}>
                   Vêtements
                 </Link>
                 <div className="space-y-1">
-                  <Link href="/products/subcategory/maillots" className="block rounded px-3 py-2" onClick={closeMenu}>
+                  <Link href="/products?subcategory=maillots" className="block rounded px-3 py-2" onClick={closeMenu}>
                     Maillots
                   </Link>
-                  <Link href="/products/subcategory/shorts" className="block rounded px-3 py-2" onClick={closeMenu}>
+                  <Link href="/products?subcategory=shorts" className="block rounded px-3 py-2" onClick={closeMenu}>
                     Shorts
                   </Link>
                 </div>
@@ -250,14 +250,14 @@ export default function Header() {
 
               {/* Chaussures */}
               <div className="text-lg">
-                <Link href="/products/category/chaussures" className="block rounded px-3 py-2 font-semibold" onClick={closeMenu}>
+                <Link href="/products?category=chaussures" className="block rounded px-3 py-2 font-semibold" onClick={closeMenu}>
                   Chaussures
                 </Link>
                 <div className="space-y-1">
-                  <Link href="/products/subcategory/lifestyles" className="block rounded px-3 py-2" onClick={closeMenu}>
+                  <Link href="/products?subcategory=lifestyles" className="block rounded px-3 py-2" onClick={closeMenu}>
                     Lifestyles
                   </Link>
-                  <Link href="/products/subcategory/basketball" className="block rounded px-3 py-2" onClick={closeMenu}>
+                  <Link href="/products?subcategory=basketball" className="block rounded px-3 py-2" onClick={closeMenu}>
                     Basketball
                   </Link>
                 </div>
