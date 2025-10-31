@@ -34,7 +34,7 @@ export default function Home() {
     <main>
       <div>
         <section className="relative flex min-h-[80vh] w-full items-center justify-center">
-          <Image id="lcp-hero" src="/images/jordan.jpg" alt="la référence du basketball en ligne !" fill priority fetchPriority="high" sizes="100vw" style={{ objectFit: "cover", objectPosition: "top" }} />
+          <Image id="lcp-hero" className="object-cover object-top" src="/images/jordan.jpg" alt="la référence du basketball en ligne !" fill priority fetchPriority="high" sizes="100vw" />
 
           <div className="relative z-10 mx-auto w-full max-w-7xl p-8">
             <h1 className="text-light text-6xl">
