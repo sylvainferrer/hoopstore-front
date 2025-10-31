@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Card from "@/components/card";
+import Image from "next/image";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -31,13 +32,17 @@ export default function Home() {
 
   return (
     <main>
-      <div className="flex min-h-[80vh] w-full items-center justify-center bg-cover bg-top" style={{ backgroundImage: `url('/images/jordan.jpg')` }}>
-        <section className="mx-auto w-full max-w-7xl p-8">
-          <h1 className="text-light text-6xl">
-            la référence du <span className="text-primary">basketball</span>
-            <br />
-            en ligne !
-          </h1>
+      <div>
+        <section className="relative flex min-h-[80vh] w-full items-center justify-center">
+          <Image id="lcp-hero" src="/images/jordan.jpg" alt="la référence du basketball en ligne !" fill priority fetchPriority="high" sizes="100vw" style={{ objectFit: "cover", objectPosition: "top" }} />
+
+          <div className="relative z-10 mx-auto w-full max-w-7xl p-8">
+            <h1 className="text-light text-6xl">
+              la référence du <span className="text-primary">basketball</span>
+              <br />
+              en ligne !
+            </h1>
+          </div>
         </section>
       </div>
 
