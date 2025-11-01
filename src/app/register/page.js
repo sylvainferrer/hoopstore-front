@@ -52,6 +52,7 @@ export default function Register() {
     <main className="py-20">
       <section className="mx-auto max-w-7xl p-8">
         <div className="bg-light border-body-light mx-auto max-w-xl rounded border p-8">
+          <h1 className="sr-only">Formulaire d'enregistrement</h1>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="firstname" className="mb-1 block">

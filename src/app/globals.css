@@ -3,7 +3,7 @@
 @theme inline {
   --font-sans: var(--font-open);
   --font-title: var(--font-teko);
-  --color-primary: var(--color-orange-600);
+  --color-primary: #E03300;
   --color-primary-light: var(--color-orange-100);
   --color-light: var(--color-white);
   --color-dark: var(--color-zinc-950);
